@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Material 3 Components Preview</title>
+
+  <!-- Roboto font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Material Symbols font for icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <!-- Material Web import map + all components -->
+  <script type="importmap">
+    {
+      "imports": {
+        "@material/web/": "https://esm.run/@material/web/"
+      }
+    }
+  </script>
+  <script type="module">
+    import '@material/web/all.js';
+    import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
+
+    document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+  </script>
+
+  <style>
+    :root {
+      --md-sys-color-primary: #6750a4;
+      --md-sys-color-on-primary: #ffffff;
+      --md-sys-color-primary-container: #eaddff;
+      --md-sys-color-on-primary-container: #21005d;
+      --md-sys-color-secondary: #625b71;
+      --md-sys-color-surface: #fef7ff;
+      --md-sys-color-background: #fef7ff;
+      --md-sys-color-on-surface: #1d1b20;
+      --md-sys-color-outline: #79747e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      color: #1d1b20;
+      line-height: 1.5;
+    }
+
+    .page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .header {
+      margin-bottom: 32px;
+    }
+
+    .header h1 {
+      margin: 0 0 8px 0;
+    }
+
+    .subtitle {
+      color: #49454f;
+      margin: 0;
+    }
+
+    .component-section {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+      transition: box-shadow 0.2s;
+    }
+
+    .component-section:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .component-section h2 {
+      margin: 0 0 16px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e0e0e0;
+      font-weight: 500;
+    }
+
+    .demo-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .demo-area.flex-col {
+      flex-direction: column;
+    }
+
+    .demo-area.flex-row {
+      flex-direction: row;
+    }
+
+    .code-snippet {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 16px;
+      border-radius: 12px;
+      font-family: 'Roboto Mono', 'Consolas', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 300px;
+      overflow-y: auto;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .code-snippet code {
+      font-family: inherit;
+    }
+
+    /* Utility */
+    .mt-8 { margin-top: 8px; }
+    .mb-8 { margin-bottom: 8px; }
+
+    /* Specific demo widths */
+    md-filled-text-field,
+    md-outlined-text-field,
+    md-filled-select,
+    md-outlined-select {
+      width: 280px;
+    }
+
+    md-slider {
+      width: 300px;
+    }
+
+    md-linear-progress {
+      width: 300px;
+    }
+
+    /* Card demo */
+    .demo-card {
+      width: 200px;
+    }
+    .demo-card-content {
+      padding: 16px;
+    }
+
+    /* Top app bar container */
+    .top-app-bar-container {
+      width: 100%;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Navigation drawer demo container */
+    .drawer-demo-container {
+      position: relative;
+      height: 200px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Dialog demo */
+    .dialog-demo-container {
+      position: relative;
+      height: 300px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fafafa;
+    }
+
+    /* Icon styling for md-icon */
+    md-icon {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <div class="header">
+    <h1 class="md-typescale-display-medium">Material 3 Components Preview</h1>
+    <p class="md-typescale-body-large subtitle">All components from <code>@material/web</code> loaded via CDN.</p>
+  </div>
+
+  <!-- 1. Buttons -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">1. Buttons</h2>
+    <div class="demo-area flex-row">
+      <md-filled-button>Filled</md-filled-button>
+      <md-filled-tonal-button>Tonal</md-filled-tonal-button>
+      <md-elevated-button>Elevated</md-elevated-button>
+      <md-outlined-button>Outlined</md-outlined-button>
+      <md-text-button>Text</md-text-button>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-filled-button&gt;Filled&lt;/md-filled-button&gt;
+&lt;md-filled-tonal-button&gt;Tonal&lt;/md-filled-tonal-button&gt;
+&lt;md-elevated-button&gt;Elevated&lt;/md-elevated-button&gt;
+&lt;md-outlined-button&gt;Outlined&lt;/md-outlined-button&gt;
+&lt;md-text-button&gt;Text&lt;/md-text-button&gt;</code></pre>
+  </div>
+
+  <!-- 2. FAB -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">2. Floating Action Button (FAB)</h2>
+    <div class="demo-area flex-row">
+      <md-fab aria-label="Add">
+        <md-icon slot="icon">add</md-icon>
+      </md-fab>
+      <md-fab variant="primary" aria-label="Edit">
+        <md-icon slot="icon">edit</md-icon>
+      </md-fab>
+      <md-fab variant="secondary" aria-label="Favorite">
+        <md-icon slot="icon">favorite</md-icon>
+      </md-fab>
+      <md-fab variant="tertiary" aria-label="Delete">
+        <md-icon slot="icon">delete</md-icon>
+      </md-fab>
+      <md-branded-fab aria-label="Create">
+        <md-icon slot="icon">add</md-icon>
+      </md-branded-fab>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-fab aria-label="Add"&gt;
+  &lt;md-icon slot="icon"&gt;add&lt;/md-icon&gt;
+&lt;/md-fab&gt;
+&lt;md-branded-fab aria-label="Create"&gt;
+  &lt;md-icon slot="icon"&gt;add&lt;/md-icon&gt;
+&lt;/md-branded-fab&gt;</code></pre>
+  </div>
+
+  <!-- 3. Icon Buttons -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">3. Icon Buttons</h2>
+    <div class="demo-area flex-row">
+      <md-icon-button><md-icon>favorite</md-icon></md-icon-button>
+      <md-filled-icon-button><md-icon>favorite</md-icon></md-filled-icon-button>
+      <md-filled-tonal-icon-button><md-icon>favorite</md-icon></md-filled-tonal-icon-button>
+      <md-outlined-icon-button><md-icon>favorite</md-icon></md-outlined-icon-button>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-icon-button&gt;&lt;md-icon&gt;favorite&lt;/md-icon&gt;&lt;/md-icon-button&gt;
+&lt;md-filled-icon-button&gt;&lt;md-icon&gt;favorite&lt;/md-icon&gt;&lt;/md-filled-icon-button&gt;
+&lt;md-filled-tonal-icon-button&gt;&lt;md-icon&gt;favorite&lt;/md-icon&gt;&lt;/md-filled-tonal-icon-button&gt;
+&lt;md-outlined-icon-button&gt;&lt;md-icon&gt;favorite&lt;/md-icon&gt;&lt;/md-outlined-icon-button&gt;</code></pre>
+  </div>
+
+  <!-- 4. Checkbox -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">4. Checkbox</h2>
+    <div class="demo-area flex-row">
+      <md-checkbox></md-checkbox>
+      <md-checkbox checked></md-checkbox>
+      <md-checkbox indeterminate></md-checkbox>
+      <md-checkbox disabled></md-checkbox>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-checkbox&gt;&lt;/md-checkbox&gt;
+&lt;md-checkbox checked&gt;&lt;/md-checkbox&gt;
+&lt;md-checkbox indeterminate&gt;&lt;/md-checkbox&gt;
+&lt;md-checkbox disabled&gt;&lt;/md-checkbox&gt;</code></pre>
+  </div>
+
+  <!-- 5. Radio -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">5. Radio Buttons</h2>
+    <div class="demo-area flex-row">
+      <md-radio name="demo-radio" value="1" checked></md-radio>
+      <md-radio name="demo-radio" value="2"></md-radio>
+      <md-radio name="demo-radio" value="3"></md-radio>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-radio name="group" value="1" checked&gt;&lt;/md-radio&gt;
+&lt;md-radio name="group" value="2"&gt;&lt;/md-radio&gt;
+&lt;md-radio name="group" value="3"&gt;&lt;/md-radio&gt;</code></pre>
+  </div>
+
+  <!-- 6. Switch -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">6. Switch</h2>
+    <div class="demo-area flex-row">
+      <md-switch></md-switch>
+      <md-switch selected></md-switch>
+      <md-switch disabled></md-switch>
+      <md-switch selected disabled></md-switch>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-switch&gt;&lt;/md-switch&gt;
+&lt;md-switch selected&gt;&lt;/md-switch&gt;
+&lt;md-switch disabled&gt;&lt;/md-switch&gt;
+&lt;md-switch selected disabled&gt;&lt;/md-switch&gt;</code></pre>
+  </div>
+
+  <!-- 7. Text Fields -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">7. Text Fields</h2>
+    <div class="demo-area flex-col">
+      <md-filled-text-field label="Filled text field"></md-filled-text-field>
+      <md-outlined-text-field label="Outlined text field"></md-outlined-text-field>
+      <md-filled-text-field label="With value" value="Hello"></md-filled-text-field>
+      <md-outlined-text-field label="With error" error error-text="Error message"></md-outlined-text-field>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-filled-text-field label="Filled text field"&gt;&lt;/md-filled-text-field&gt;
+&lt;md-outlined-text-field label="Outlined text field"&gt;&lt;/md-outlined-text-field&gt;
+&lt;md-filled-text-field label="With value" value="Hello"&gt;&lt;/md-filled-text-field&gt;
+&lt;md-outlined-text-field label="With error" error error-text="Error message"&gt;&lt;/md-outlined-text-field&gt;</code></pre>
+  </div>
+
+  <!-- 8. Select -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">8. Select Menus</h2>
+    <div class="demo-area flex-row">
+      <md-filled-select label="Filled select">
+        <md-select-option value="1"><div slot="headline">Option 1</div></md-select-option>
+        <md-select-option value="2"><div slot="headline">Option 2</div></md-select-option>
+        <md-select-option value="3"><div slot="headline">Option 3</div></md-select-option>
+      </md-filled-select>
+      <md-outlined-select label="Outlined select">
+        <md-select-option value="1"><div slot="headline">Option 1</div></md-select-option>
+        <md-select-option value="2"><div slot="headline">Option 2</div></md-select-option>
+        <md-select-option value="3"><div slot="headline">Option 3</div></md-select-option>
+      </md-outlined-select>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-filled-select label="Filled select"&gt;
+  &lt;md-select-option value="1"&gt;&lt;div slot="headline"&gt;Option 1&lt;/div&gt;&lt;/md-select-option&gt;
+&lt;/md-filled-select&gt;</code></pre>
+  </div>
+
+  <!-- 9. Slider -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">9. Slider</h2>
+    <div class="demo-area flex-col">
+      <md-slider value="50" aria-label="Continuous slider"></md-slider>
+      <md-slider value="30" ticks aria-label="Discrete slider"></md-slider>
+      <md-slider range value-start="20" value-end="80" aria-label="Range slider"></md-slider>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-slider value="50" aria-label="Continuous slider"&gt;&lt;/md-slider&gt;
+&lt;md-slider value="30" ticks aria-label="Discrete slider"&gt;&lt;/md-slider&gt;
+&lt;md-slider range value-start="20" value-end="80" aria-label="Range slider"&gt;&lt;/md-slider&gt;</code></pre>
+  </div>
+
+  <!-- 10. Chips -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">10. Chips</h2>
+    <div class="demo-area flex-col">
+      <md-chip-set>
+        <md-assist-chip label="Assist"></md-assist-chip>
+        <md-filter-chip label="Filter"></md-filter-chip>
+        <md-input-chip label="Input"></md-input-chip>
+        <md-suggestion-chip label="Suggestion"></md-suggestion-chip>
+      </md-chip-set>
+      <md-chip-set>
+        <md-filter-chip label="Selected" selected></md-filter-chip>
+      </md-chip-set>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-chip-set&gt;
+  &lt;md-assist-chip label="Assist"&gt;&lt;/md-assist-chip&gt;
+  &lt;md-filter-chip label="Filter"&gt;&lt;/md-filter-chip&gt;
+  &lt;md-input-chip label="Input"&gt;&lt;/md-input-chip&gt;
+  &lt;md-suggestion-chip label="Suggestion"&gt;&lt;/md-suggestion-chip&gt;
+&lt;/md-chip-set&gt;</code></pre>
+  </div>
+
+  <!-- 11. Cards -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">11. Cards</h2>
+    <div class="demo-area flex-row">
+      <md-elevated-card class="demo-card">
+        <div class="demo-card-content">
+          <h3 class="md-typescale-title-medium">Elevated Card</h3>
+          <p class="md-typescale-body-medium">Some content here.</p>
+        </div>
+      </md-elevated-card>
+      <md-filled-card class="demo-card">
+        <div class="demo-card-content">
+          <h3 class="md-typescale-title-medium">Filled Card</h3>
+          <p class="md-typescale-body-medium">Some content here.</p>
+        </div>
+      </md-filled-card>
+      <md-outlined-card class="demo-card">
+        <div class="demo-card-content">
+          <h3 class="md-typescale-title-medium">Outlined Card</h3>
+          <p class="md-typescale-body-medium">Some content here.</p>
+        </div>
+      </md-outlined-card>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-elevated-card&gt;...&lt;/md-elevated-card&gt;
+&lt;md-filled-card&gt;...&lt;/md-filled-card&gt;
+&lt;md-outlined-card&gt;...&lt;/md-outlined-card&gt;</code></pre>
+  </div>
+
+  <!-- 12. List -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">12. Lists</h2>
+    <div class="demo-area">
+      <md-list style="width: 300px;">
+        <md-list-item>
+          <md-icon slot="start">inbox</md-icon>
+          <div slot="headline">Inbox</div>
+        </md-list-item>
+        <md-list-item>
+          <md-icon slot="start">send</md-icon>
+          <div slot="headline">Sent</div>
+        </md-list-item>
+        <md-list-item>
+          <md-icon slot="start">drafts</md-icon>
+          <div slot="headline">Drafts</div>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item>
+          <md-icon slot="start">delete</md-icon>
+          <div slot="headline">Trash</div>
+        </md-list-item>
+      </md-list>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-list&gt;
+  &lt;md-list-item&gt;
+    &lt;md-icon slot="start"&gt;inbox&lt;/md-icon&gt;
+    &lt;div slot="headline"&gt;Inbox&lt;/div&gt;
+  &lt;/md-list-item&gt;
+&lt;/md-list&gt;</code></pre>
+  </div>
+
+  <!-- 13. Menu -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">13. Menus</h2>
+    <div class="demo-area flex-row">
+      <md-outlined-button id="menu-button">Open Menu</md-outlined-button>
+      <md-menu id="demo-menu" anchor="menu-button">
+        <md-menu-item>
+          <div slot="headline">Item 1</div>
+        </md-menu-item>
+        <md-menu-item>
+          <div slot="headline">Item 2</div>
+        </md-menu-item>
+        <md-menu-item>
+          <div slot="headline">Item 3</div>
+        </md-menu-item>
+        <md-divider></md-divider>
+        <md-menu-item>
+          <div slot="headline">Item 4</div>
+        </md-menu-item>
+      </md-menu>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-outlined-button id="menu-button"&gt;Open Menu&lt;/md-outlined-button&gt;
+&lt;md-menu id="demo-menu" anchor="menu-button"&gt;
+  &lt;md-menu-item&gt;&lt;div slot="headline"&gt;Item 1&lt;/div&gt;&lt;/md-menu-item&gt;
+&lt;/md-menu&gt;</code></pre>
+  </div>
+
+  <!-- 14. Dialog -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">14. Dialogs</h2>
+    <div class="demo-area">
+      <md-filled-button id="dialog-open-button">Open Dialog</md-filled-button>
+      <md-dialog id="demo-dialog">
+        <div slot="headline">Dialog Title</div>
+        <div slot="content">
+          This is the dialog content. You can put any text or components here.
+        </div>
+        <div slot="actions">
+          <md-text-button id="dialog-cancel">Cancel</md-text-button>
+          <md-text-button id="dialog-confirm">Confirm</md-text-button>
+        </div>
+      </md-dialog>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-filled-button id="dialog-open-button"&gt;Open Dialog&lt;/md-filled-button&gt;
+&lt;md-dialog id="demo-dialog"&gt;
+  &lt;div slot="headline"&gt;Dialog Title&lt;/div&gt;
+  &lt;div slot="content"&gt;Content&lt;/div&gt;
+  &lt;div slot="actions"&gt;
+    &lt;md-text-button&gt;Cancel&lt;/md-text-button&gt;
+    &lt;md-text-button&gt;Confirm&lt;/md-text-button&gt;
+  &lt;/div&gt;
+&lt;/md-dialog&gt;</code></pre>
+  </div>
+
+  <!-- 15. Tabs -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">15. Tabs</h2>
+    <div class="demo-area flex-col">
+      <md-tabs>
+        <md-primary-tab>Home</md-primary-tab>
+        <md-primary-tab>Favorites</md-primary-tab>
+        <md-primary-tab>Settings</md-primary-tab>
+      </md-tabs>
+      <md-tabs>
+        <md-secondary-tab>Tab 1</md-secondary-tab>
+        <md-secondary-tab>Tab 2</md-secondary-tab>
+        <md-secondary-tab>Tab 3</md-secondary-tab>
+      </md-tabs>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-tabs&gt;
+  &lt;md-primary-tab&gt;Home&lt;/md-primary-tab&gt;
+  &lt;md-primary-tab&gt;Favorites&lt;/md-primary-tab&gt;
+&lt;/md-tabs&gt;
+&lt;md-tabs&gt;
+  &lt;md-secondary-tab&gt;Tab 1&lt;/md-secondary-tab&gt;
+  &lt;md-secondary-tab&gt;Tab 2&lt;/md-secondary-tab&gt;
+&lt;/md-tabs&gt;</code></pre>
+  </div>
+
+  <!-- 16. Top App Bar -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">16. Top App Bar</h2>
+    <div class="top-app-bar-container">
+      <md-top-app-bar style="position: relative;">
+        <md-icon-button slot="navigation">
+          <md-icon>menu</md-icon>
+        </md-icon-button>
+        <div slot="title">Title</div>
+        <md-icon-button slot="actions">
+          <md-icon>more_vert</md-icon>
+        </md-icon-button>
+      </md-top-app-bar>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-top-app-bar&gt;
+  &lt;md-icon-button slot="navigation"&gt;
+    &lt;md-icon&gt;menu&lt;/md-icon&gt;
+  &lt;/md-icon-button&gt;
+  &lt;div slot="title"&gt;Title&lt;/div&gt;
+  &lt;md-icon-button slot="actions"&gt;
+    &lt;md-icon&gt;more_vert&lt;/md-icon&gt;
+  &lt;/md-icon-button&gt;
+&lt;/md-top-app-bar&gt;</code></pre>
+  </div>
+
+  <!-- 17. Navigation Drawer -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">17. Navigation Drawer (Modal)</h2>
+    <div class="demo-area">
+      <md-filled-button id="drawer-open-button">Open Drawer</md-filled-button>
+      <md-navigation-drawer id="demo-drawer" modal>
+        <div slot="headline">Menu</div>
+        <md-list>
+          <md-list-item>
+            <md-icon slot="start">inbox</md-icon>
+            <div slot="headline">Inbox</div>
+          </md-list-item>
+          <md-list-item>
+            <md-icon slot="start">send</md-icon>
+            <div slot="headline">Sent</div>
+          </md-list-item>
+          <md-list-item>
+            <md-icon slot="start">drafts</md-icon>
+            <div slot="headline">Drafts</div>
+          </md-list-item>
+        </md-list>
+      </md-navigation-drawer>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-filled-button id="drawer-open-button"&gt;Open Drawer&lt;/md-filled-button&gt;
+&lt;md-navigation-drawer id="demo-drawer" modal&gt;
+  &lt;div slot="headline"&gt;Menu&lt;/div&gt;
+  &lt;md-list&gt;...&lt;/md-list&gt;
+&lt;/md-navigation-drawer&gt;</code></pre>
+  </div>
+
+  <!-- 18. Progress Indicators -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">18. Progress Indicators</h2>
+    <div class="demo-area flex-col">
+      <md-linear-progress indeterminate></md-linear-progress>
+      <md-linear-progress value="0.5"></md-linear-progress>
+      <md-circular-progress indeterminate></md-circular-progress>
+      <md-circular-progress value="0.7"></md-circular-progress>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-linear-progress indeterminate&gt;&lt;/md-linear-progress&gt;
+&lt;md-linear-progress value="0.5"&gt;&lt;/md-linear-progress&gt;
+&lt;md-circular-progress indeterminate&gt;&lt;/md-circular-progress&gt;
+&lt;md-circular-progress value="0.7"&gt;&lt;/md-circular-progress&gt;</code></pre>
+  </div>
+
+  <!-- 19. Divider -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">19. Divider</h2>
+    <div class="demo-area flex-col">
+      <md-divider></md-divider>
+      <md-divider inset></md-divider>
+      <md-divider inset-start></md-divider>
+      <md-divider inset-end></md-divider>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-divider&gt;&lt;/md-divider&gt;
+&lt;md-divider inset&gt;&lt;/md-divider&gt;
+&lt;md-divider inset-start&gt;&lt;/md-divider&gt;
+&lt;md-divider inset-end&gt;&lt;/md-divider&gt;</code></pre>
+  </div>
+
+  <!-- 20. Segmented Button -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">20. Segmented Button</h2>
+    <div class="demo-area">
+      <md-segmented-button-set>
+        <md-segmented-button label="Day"></md-segmented-button>
+        <md-segmented-button label="Week"></md-segmented-button>
+        <md-segmented-button label="Month"></md-segmented-button>
+      </md-segmented-button-set>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-segmented-button-set&gt;
+  &lt;md-segmented-button label="Day"&gt;&lt;/md-segmented-button&gt;
+  &lt;md-segmented-button label="Week"&gt;&lt;/md-segmented-button&gt;
+  &lt;md-segmented-button label="Month"&gt;&lt;/md-segmented-button&gt;
+&lt;/md-segmented-button-set&gt;</code></pre>
+  </div>
+
+  <!-- 21. Navigation Bar -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">21. Navigation Bar</h2>
+    <div class="demo-area">
+      <md-navigation-bar>
+        <md-navigation-tab label="Home">
+          <md-icon slot="icon">home</md-icon>
+        </md-navigation-tab>
+        <md-navigation-tab label="Search">
+          <md-icon slot="icon">search</md-icon>
+        </md-navigation-tab>
+        <md-navigation-tab label="Settings">
+          <md-icon slot="icon">settings</md-icon>
+        </md-navigation-tab>
+      </md-navigation-bar>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-navigation-bar&gt;
+  &lt;md-navigation-tab label="Home"&gt;
+    &lt;md-icon slot="icon"&gt;home&lt;/md-icon&gt;
+  &lt;/md-navigation-tab&gt;
+&lt;/md-navigation-bar&gt;</code></pre>
+  </div>
+
+  <!-- 22. Navigation Rail -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">22. Navigation Rail</h2>
+    <div class="demo-area">
+      <md-navigation-rail>
+        <md-navigation-tab label="Home">
+          <md-icon slot="icon">home</md-icon>
+        </md-navigation-tab>
+        <md-navigation-tab label="Search">
+          <md-icon slot="icon">search</md-icon>
+        </md-navigation-tab>
+        <md-navigation-tab label="Settings">
+          <md-icon slot="icon">settings</md-icon>
+        </md-navigation-tab>
+      </md-navigation-rail>
+    </div>
+    <pre class="code-snippet"><code>&lt;md-navigation-rail&gt;
+  &lt;md-navigation-tab label="Home"&gt;
+    &lt;md-icon slot="icon"&gt;home&lt;/md-icon&gt;
+  &lt;/md-navigation-tab&gt;
+&lt;/md-navigation-rail&gt;</code></pre>
+  </div>
+
+  <!-- 23. Typography -->
+  <div class="component-section">
+    <h2 class="md-typescale-headline-small">23. Typography</h2>
+    <div class="demo-area flex-col">
+      <p class="md-typescale-display-large">Display Large</p>
+      <p class="md-typescale-display-medium">Display Medium</p>
+      <p class="md-typescale-display-small">Display Small</p>
+      <p class="md-typescale-headline-large">Headline Large</p>
+      <p class="md-typescale-headline-medium">Headline Medium</p>
+      <p class="md-typescale-headline-small">Headline Small</p>
+      <p class="md-typescale-title-large">Title Large</p>
+      <p class="md-typescale-title-medium">Title Medium</p>
+      <p class="md-typescale-title-small">Title Small</p>
+      <p class="md-typescale-body-large">Body Large</p>
+      <p class="md-typescale-body-medium">Body Medium</p>
+      <p class="md-typescale-body-small">Body Small</p>
+      <p class="md-typescale-label-large">Label Large</p>
+      <p class="md-typescale-label-medium">Label Medium</p>
+      <p class="md-typescale-label-small">Label Small</p>
+    </div>
+    <pre class="code-snippet"><code>&lt;p class="md-typescale-display-large"&gt;Display Large&lt;/p&gt;</code></pre>
+  </div>
+
+</div><!-- /.page-container -->
+
+<!-- Interaction script for Menu, Dialog, Drawer -->
+<script type="module">
+  // Menu
+  const menuButton = document.getElementById('menu-button');
+  const menu = document.getElementById('demo-menu');
+  if (menuButton && menu) {
+    menuButton.addEventListener('click', () => {
+      menu.open = !menu.open;
+    });
+  }
+
+  // Dialog
+  const dialogOpenButton = document.getElementById('dialog-open-button');
+  const dialog = document.getElementById('demo-dialog');
+  const dialogCancel = document.getElementById('dialog-cancel');
+  const dialogConfirm = document.getElementById('dialog-confirm');
+  if (dialogOpenButton && dialog) {
+    dialogOpenButton.addEventListener('click', () => {
+      dialog.show();
+    });
+  }
+  if (dialogCancel && dialog) {
+    dialogCancel.addEventListener('click', () => {
+      dialog.close();
+    });
+  }
+  if (dialogConfirm && dialog) {
+    dialogConfirm.addEventListener('click', () => {
+      dialog.close();
+    });
+  }
+
+  // Drawer
+  const drawerOpenButton = document.getElementById('drawer-open-button');
+  const drawer = document.getElementById('demo-drawer');
+  if (drawerOpenButton && drawer) {
+    drawerOpenButton.addEventListener('click', () => {
+      drawer.open = true;
+    });
+  }
+</script>
+
+</body>
+</html>
