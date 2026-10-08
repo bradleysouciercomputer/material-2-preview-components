@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Material Components for the Web (M2) – All Components Preview</title>
+
+  <!-- Material Components Web CSS (M2) -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <!-- Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Roboto font (recommended) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+
+  <style>
+    :root {
+      --mdc-theme-primary: #6200ee;
+      --mdc-theme-secondary: #03dac6;
+      --mdc-theme-background: #fff;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      color: #212121;
+      line-height: 1.6;
+    }
+    .page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 400;
+      margin-top: 0;
+      margin-bottom: 8px;
+      color: var(--mdc-theme-primary);
+    }
+    .subtitle {
+      font-size: 1rem;
+      color: #616161;
+      margin-bottom: 32px;
+    }
+    .component-section {
+      background: #fff;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,.1);
+      transition: box-shadow .2s;
+    }
+    .component-section:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,.15);
+    }
+    .component-section h2 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: #333;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 8px;
+    }
+    .demo-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .demo-area > * {
+      flex: 0 1 auto;
+    }
+    .code-snippet {
+      background: #263238;
+      color: #eeffff;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .code-snippet .tag { color: #89ddff; }
+    .code-snippet .attr { color: #ffcb6b; }
+    .code-snippet .val { color: #c3e88d; }
+    /* Layout helpers */
+    .flex-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .flex-col { display: flex; flex-direction: column; gap: 16px; }
+    .mt-8 { margin-top: 8px; }
+    .mb-8 { margin-bottom: 8px; }
+    /* Fix for text fields */
+    .mdc-text-field { width: 240px; }
+    /* Fix for select */
+    .mdc-select { width: 240px; }
+    /* Slider width */
+    .mdc-slider { width: 300px; }
+    /* Linear progress width */
+    .mdc-linear-progress { width: 300px; }
+    /* Drawer demo */
+    .drawer-demo-container {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+    }
+    /* Top app bar demo */
+    .top-app-bar-demo {
+      position: relative;
+      height: 64px;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    /* Snackbar demo container */
+    .snackbar-demo-container {
+      position: relative;
+      height: 120px;
+      background: #fafafa;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    /* Dialog demo container */
+    .dialog-demo-container {
+      position: relative;
+      height: 300px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fafafa;
+    }
+    /* Image list */
+    .mdc-image-list.demo-image-list {
+      width: 300px;
+      columns: 3;
+      column-gap: 8px;
+    }
+    .mdc-image-list.demo-image-list .mdc-image-list__item {
+      margin-bottom: 8px;
+      break-inside: avoid;
+    }
+    .mdc-image-list.demo-image-list .mdc-image-list__image {
+      width: 100%;
+      display: block;
+      border-radius: 4px;
+      background: #e0e0e0;
+      height: 80px;
+      object-fit: cover;
+    }
+    /* Data table */
+    .demo-data-table {
+      width: 100%;
+      max-width: 600px;
+    }
+    /* Chips */
+    .mdc-chip-set { max-width: 400px; }
+    /* Banner */
+    .mdc-banner { max-width: 100%; }
+    /* Tooltip */
+    .tooltip-anchor {
+      display: inline-block;
+      position: relative;
+    }
+    /* FAB */
+    .fab-demo-wrapper {
+      position: relative;
+      height: 80px;
+      width: 80px;
+    }
+    .fab-demo-wrapper .mdc-fab {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+    /* Card */
+    .demo-card {
+      max-width: 300px;
+    }
+    .demo-card .mdc-card__media {
+      height: 120px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Material Components for the Web – M2 Preview</h1>
+  <p class="subtitle">All components loaded via CDN. Each section shows a live preview and the corresponding HTML snippet.</p>
+
+  <!-- ============================================================ -->
+  <!-- 1. BUTTONS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>1. Buttons</h2>
+    <div class="demo-area flex-row">
+      <button class="mdc-button">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">Text</span>
+      </button>
+      <button class="mdc-button mdc-button--raised">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">Raised</span>
+      </button>
+      <button class="mdc-button mdc-button--unelevated">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">Unelevated</span>
+      </button>
+      <button class="mdc-button mdc-button--outlined">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">Outlined</span>
+      </button>
+      <button class="mdc-button" disabled>
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">Disabled</span>
+      </button>
+    </div>
+    <div class="code-snippet">&lt;button class="mdc-button"&gt;
+  &lt;span class="mdc-button__ripple"&gt;&lt;/span&gt;
+  &lt;span class="mdc-button__label"&gt;Text&lt;/span&gt;
+&lt;/button&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 2. FLOATING ACTION BUTTON (FAB) -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>2. Floating Action Button (FAB)</h2>
+    <div class="demo-area flex-row" style="gap:32px;">
+      <div class="fab-demo-wrapper">
+        <button class="mdc-fab" aria-label="Add">
+          <div class="mdc-fab__ripple"></div>
+          <span class="material-icons mdc-fab__icon">add</span>
+        </button>
+      </div>
+      <div class="fab-demo-wrapper">
+        <button class="mdc-fab mdc-fab--mini" aria-label="Favorite">
+          <div class="mdc-fab__ripple"></div>
+          <span class="material-icons mdc-fab__icon">favorite</span>
+        </button>
+      </div>
+      <div class="fab-demo-wrapper" style="width:auto;">
+        <button class="mdc-fab mdc-fab--extended" aria-label="Create">
+          <div class="mdc-fab__ripple"></div>
+          <span class="material-icons mdc-fab__icon">add</span>
+          <span class="mdc-fab__label">Create</span>
+        </button>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;button class="mdc-fab" aria-label="Add"&gt;
+  &lt;div class="mdc-fab__ripple"&gt;&lt;/div&gt;
+  &lt;span class="material-icons mdc-fab__icon"&gt;add&lt;/span&gt;
+&lt;/button&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 3. ICON BUTTONS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>3. Icon Buttons</h2>
+    <div class="demo-area flex-row">
+      <button class="mdc-icon-button material-icons">
+        <div class="mdc-icon-button__ripple"></div>
+        <span class="mdc-icon-button__focus-ring"></span>
+        favorite
+      </button>
+      <button class="mdc-icon-button material-icons">
+        <div class="mdc-icon-button__ripple"></div>
+        <span class="mdc-icon-button__focus-ring"></span>
+        more_vert
+      </button>
+      <!-- Icon button toggle -->
+      <button class="mdc-icon-button material-icons" id="icon-toggle-demo" aria-pressed="false">
+        <div class="mdc-icon-button__ripple"></div>
+        <span class="mdc-icon-button__focus-ring"></span>
+        <span class="mdc-icon-button__icon">favorite_border</span>
+        <span class="mdc-icon-button__icon mdc-icon-button__icon--on">favorite</span>
+      </button>
+    </div>
+    <div class="code-snippet">&lt;button class="mdc-icon-button material-icons"&gt;
+  &lt;div class="mdc-icon-button__ripple"&gt;&lt;/div&gt;
+  favorite
+&lt;/button&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 4. TEXT FIELDS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>4. Text Fields</h2>
+    <div class="demo-area flex-row">
+      <!-- Filled text field -->
+      <label class="mdc-text-field mdc-text-field--filled">
+        <span class="mdc-text-field__ripple"></span>
+        <span class="mdc-floating-label" id="tf-filled-label">Filled</span>
+        <input class="mdc-text-field__input" type="text" aria-labelledby="tf-filled-label">
+        <span class="mdc-line-ripple"></span>
+      </label>
+      <!-- Outlined text field -->
+      <label class="mdc-text-field mdc-text-field--outlined">
+        <span class="mdc-notched-outline">
+          <span class="mdc-notched-outline__leading"></span>
+          <span class="mdc-notched-outline__notch">
+            <span class="mdc-floating-label" id="tf-outlined-label">Outlined</span>
+          </span>
+          <span class="mdc-notched-outline__trailing"></span>
+        </span>
+        <input type="text" class="mdc-text-field__input" aria-labelledby="tf-outlined-label">
+      </label>
+      <!-- Textarea -->
+      <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea">
+        <span class="mdc-text-field__ripple"></span>
+        <span class="mdc-floating-label" id="tf-textarea-label">Textarea</span>
+        <span class="mdc-text-field__resizer">
+          <textarea class="mdc-text-field__input" rows="2" cols="20" aria-labelledby="tf-textarea-label"></textarea>
+        </span>
+        <span class="mdc-line-ripple"></span>
+      </label>
+    </div>
+    <div class="code-snippet">&lt;label class="mdc-text-field mdc-text-field--filled"&gt;
+  &lt;span class="mdc-text-field__ripple"&gt;&lt;/span&gt;
+  &lt;span class="mdc-floating-label"&gt;Label&lt;/span&gt;
+  &lt;input class="mdc-text-field__input" type="text"&gt;
+  &lt;span class="mdc-line-ripple"&gt;&lt;/span&gt;
+&lt;/label&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 5. CHECKBOXES -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>5. Checkboxes</h2>
+    <div class="demo-area flex-row">
+      <div class="mdc-form-field">
+        <div class="mdc-checkbox">
+          <input type="checkbox" class="mdc-checkbox__native-control" id="cb-1">
+          <div class="mdc-checkbox__background">
+            <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+              <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+            </svg>
+            <div class="mdc-checkbox__mixedmark"></div>
+          </div>
+          <div class="mdc-checkbox__ripple"></div>
+        </div>
+        <label for="cb-1">Unchecked</label>
+      </div>
+      <div class="mdc-form-field">
+        <div class="mdc-checkbox">
+          <input type="checkbox" class="mdc-checkbox__native-control" id="cb-2" checked>
+          <div class="mdc-checkbox__background">
+            <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+              <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+            </svg>
+            <div class="mdc-checkbox__mixedmark"></div>
+          </div>
+          <div class="mdc-checkbox__ripple"></div>
+        </div>
+        <label for="cb-2">Checked</label>
+      </div>
+      <div class="mdc-form-field">
+        <div class="mdc-checkbox">
+          <input type="checkbox" class="mdc-checkbox__native-control" id="cb-3" disabled>
+          <div class="mdc-checkbox__background">
+            <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+              <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+            </svg>
+            <div class="mdc-checkbox__mixedmark"></div>
+          </div>
+          <div class="mdc-checkbox__ripple"></div>
+        </div>
+        <label for="cb-3">Disabled</label>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-form-field"&gt;
+  &lt;div class="mdc-checkbox"&gt;
+    &lt;input type="checkbox" class="mdc-checkbox__native-control" id="cb"&gt;
+    &lt;div class="mdc-checkbox__background"&gt;...&lt;/div&gt;
+    &lt;div class="mdc-checkbox__ripple"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;label for="cb"&gt;Label&lt;/label&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 6. RADIO BUTTONS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>6. Radio Buttons</h2>
+    <div class="demo-area flex-row">
+      <div class="mdc-form-field">
+        <div class="mdc-radio">
+          <input class="mdc-radio__native-control" type="radio" id="radio-1" name="radios" checked>
+          <div class="mdc-radio__background">
+            <div class="mdc-radio__outer-circle"></div>
+            <div class="mdc-radio__inner-circle"></div>
+          </div>
+          <div class="mdc-radio__ripple"></div>
+        </div>
+        <label for="radio-1">Option 1</label>
+      </div>
+      <div class="mdc-form-field">
+        <div class="mdc-radio">
+          <input class="mdc-radio__native-control" type="radio" id="radio-2" name="radios">
+          <div class="mdc-radio__background">
+            <div class="mdc-radio__outer-circle"></div>
+            <div class="mdc-radio__inner-circle"></div>
+          </div>
+          <div class="mdc-radio__ripple"></div>
+        </div>
+        <label for="radio-2">Option 2</label>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-form-field"&gt;
+  &lt;div class="mdc-radio"&gt;
+    &lt;input class="mdc-radio__native-control" type="radio" name="radios"&gt;
+    &lt;div class="mdc-radio__background"&gt;
+      &lt;div class="mdc-radio__outer-circle"&gt;&lt;/div&gt;
+      &lt;div class="mdc-radio__inner-circle"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="mdc-radio__ripple"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;label&gt;Option&lt;/label&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 7. SWITCHES -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>7. Switches</h2>
+    <div class="demo-area flex-row">
+      <div class="mdc-form-field">
+        <button id="basic-switch" class="mdc-switch mdc-switch--unselected" type="button" role="switch" aria-checked="false">
+          <div class="mdc-switch__track"></div>
+          <div class="mdc-switch__handle-track">
+            <div class="mdc-switch__handle">
+              <div class="mdc-switch__shadow">
+                <div class="mdc-elevation-overlay"></div>
+              </div>
+              <div class="mdc-switch__ripple"></div>
+              <div class="mdc-switch__icons">
+                <svg class="mdc-switch__icon mdc-switch__icon--on" viewBox="0 0 24 24">
+                  <path d="M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z"/>
+                </svg>
+                <svg class="mdc-switch__icon mdc-switch__icon--off" viewBox="0 0 24 24">
+                  <path d="M20 13H4v-2h16v2z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </button>
+        <label for="basic-switch">Switch</label>
+      </div>
+      <div class="mdc-form-field">
+        <button id="checked-switch" class="mdc-switch mdc-switch--selected" type="button" role="switch" aria-checked="true">
+          <div class="mdc-switch__track"></div>
+          <div class="mdc-switch__handle-track">
+            <div class="mdc-switch__handle">
+              <div class="mdc-switch__shadow">
+                <div class="mdc-elevation-overlay"></div>
+              </div>
+              <div class="mdc-switch__ripple"></div>
+              <div class="mdc-switch__icons">
+                <svg class="mdc-switch__icon mdc-switch__icon--on" viewBox="0 0 24 24">
+                  <path d="M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z"/>
+                </svg>
+                <svg class="mdc-switch__icon mdc-switch__icon--off" viewBox="0 0 24 24">
+                  <path d="M20 13H4v-2h16v2z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </button>
+        <label for="checked-switch">Checked</label>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;button class="mdc-switch" type="button" role="switch" aria-checked="false"&gt;
+  &lt;div class="mdc-switch__track"&gt;&lt;/div&gt;
+  &lt;div class="mdc-switch__handle-track"&gt;...&lt;/div&gt;
+&lt;/button&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 8. SELECT MENUS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>8. Select Menus</h2>
+    <div class="demo-area flex-row">
+      <div class="mdc-select mdc-select--filled demo-width-class">
+        <div class="mdc-select__anchor">
+          <span class="mdc-select__ripple"></span>
+          <span class="mdc-floating-label" id="select-label">Pick a food</span>
+          <span class="mdc-select__dropdown-icon">
+            <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5">
+              <polygon class="mdc-select__dropdown-icon-inactive" stroke="none" fill-rule="evenodd" points="7 10 12 15 17 10"></polygon>
+              <polygon class="mdc-select__dropdown-icon-active" stroke="none" fill-rule="evenodd" points="7 15 12 10 17 15"></polygon>
+            </svg>
+          </span>
+          <span class="mdc-select__selected-text" role="button" aria-haspopup="listbox" aria-labelledby="select-label"></span>
+          <span class="mdc-line-ripple"></span>
+        </div>
+        <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+          <ul class="mdc-list" role="listbox" aria-label="Food picker listbox">
+            <li class="mdc-list-item mdc-list-item--selected" aria-selected="true" data-value="grains" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">Bread, Cereal, Rice, and Pasta</span>
+            </li>
+            <li class="mdc-list-item" aria-selected="false" data-value="vegetables" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">Vegetables</span>
+            </li>
+            <li class="mdc-list-item" aria-selected="false" data-value="fruit" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">Fruit</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-select"&gt;
+  &lt;div class="mdc-select__anchor"&gt;
+    &lt;span class="mdc-floating-label"&gt;Label&lt;/span&gt;
+    &lt;span class="mdc-select__dropdown-icon"&gt;&lt;/span&gt;
+    &lt;span class="mdc-select__selected-text"&gt;&lt;/span&gt;
+    &lt;span class="mdc-line-ripple"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="mdc-select__menu mdc-menu mdc-menu-surface"&gt;
+    &lt;ul class="mdc-list"&gt;
+      &lt;li class="mdc-list-item" data-value="1"&gt;Item 1&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 9. SLIDERS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>9. Sliders</h2>
+    <div class="demo-area flex-col" style="gap:24px;">
+      <!-- Continuous slider -->
+      <div class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Continuous slider">
+        <div class="mdc-slider__track">
+          <div class="mdc-slider__track--inactive"></div>
+          <div class="mdc-slider__track--active">
+            <div class="mdc-slider__track--active_fill"></div>
+          </div>
+        </div>
+        <div class="mdc-slider__thumb" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Continuous slider thumb">
+          <div class="mdc-slider__thumb-knob"></div>
+        </div>
+      </div>
+      <!-- Discrete slider -->
+      <div class="mdc-slider mdc-slider--discrete" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30" aria-label="Discrete slider">
+        <div class="mdc-slider__track">
+          <div class="mdc-slider__track--inactive"></div>
+          <div class="mdc-slider__track--active">
+            <div class="mdc-slider__track--active_fill"></div>
+          </div>
+        </div>
+        <div class="mdc-slider__thumb" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30" aria-label="Discrete slider thumb">
+          <div class="mdc-slider__thumb-knob"></div>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-slider" tabindex="0" role="slider"
+  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"&gt;
+  &lt;div class="mdc-slider__track"&gt;
+    &lt;div class="mdc-slider__track--inactive"&gt;&lt;/div&gt;
+    &lt;div class="mdc-slider__track--active"&gt;
+      &lt;div class="mdc-slider__track--active_fill"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="mdc-slider__thumb"&gt;
+    &lt;div class="mdc-slider__thumb-knob"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 10. CARDS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>10. Cards</h2>
+    <div class="demo-area flex-row" style="gap:24px;">
+      <!-- Elevated card -->
+      <div class="mdc-card demo-card mdc-card--outlined">
+        <div class="mdc-card__primary-action" tabindex="0">
+          <div class="mdc-card__media mdc-card__media--16-9 demo-card-media"></div>
+          <div style="padding:16px;">
+            <h3 class="mdc-typography--headline6" style="margin:0 0 4px 0;">Card Title</h3>
+            <p class="mdc-typography--body2" style="margin:0;color:#666;">Secondary text</p>
+          </div>
+        </div>
+        <div class="mdc-card__actions">
+          <div class="mdc-card__action-buttons">
+            <button class="mdc-button mdc-card__action mdc-card__action--button">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Action 1</span>
+            </button>
+            <button class="mdc-button mdc-card__action mdc-card__action--button">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Action 2</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Outlined card -->
+      <div class="mdc-card demo-card">
+        <div class="mdc-card__primary-action" tabindex="0">
+          <div style="padding:16px;">
+            <h3 class="mdc-typography--headline6" style="margin:0 0 4px 0;">Outlined Card</h3>
+            <p class="mdc-typography--body2" style="margin:0;color:#666;">With a simple text body and no media.</p>
+          </div>
+        </div>
+        <div class="mdc-card__actions">
+          <div class="mdc-card__action-buttons">
+            <button class="mdc-button mdc-card__action mdc-card__action--button">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Learn More</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-card"&gt;
+  &lt;div class="mdc-card__primary-action"&gt;
+    &lt;div class="mdc-card__media mdc-card__media--16-9"&gt;&lt;/div&gt;
+    &lt;div style="padding:16px;"&gt;
+      &lt;h3&gt;Title&lt;/h3&gt;
+      &lt;p&gt;Secondary text&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="mdc-card__actions"&gt;
+    &lt;button class="mdc-button"&gt;Action&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 11. CHIPS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>11. Chips</h2>
+    <div class="demo-area">
+      <div class="mdc-chip-set" role="grid">
+        <div class="mdc-chip" role="row">
+          <div class="mdc-chip__ripple"></div>
+          <span role="gridcell">
+            <span role="button" tabindex="0" class="mdc-chip__primary-action">
+              <span class="mdc-chip__text">Chip One</span>
+            </span>
+          </span>
+        </div>
+        <div class="mdc-chip" role="row">
+          <div class="mdc-chip__ripple"></div>
+          <span role="gridcell">
+            <span role="button" tabindex="0" class="mdc-chip__primary-action">
+              <span class="mdc-chip__text">Chip Two</span>
+            </span>
+          </span>
+        </div>
+        <div class="mdc-chip" role="row">
+          <div class="mdc-chip__ripple"></div>
+          <span role="gridcell">
+            <span role="button" tabindex="0" class="mdc-chip__primary-action">
+              <span class="mdc-chip__text">Chip Three</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-chip-set"&gt;
+  &lt;div class="mdc-chip"&gt;
+    &lt;div class="mdc-chip__ripple"&gt;&lt;/div&gt;
+    &lt;span class="mdc-chip__text"&gt;Chip&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 12. LISTS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>12. Lists</h2>
+    <div class="demo-area flex-row" style="gap:32px;">
+      <!-- Single-line list -->
+      <ul class="mdc-list" style="width:280px;">
+        <li class="mdc-list-item" tabindex="0">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">Single-line item</span>
+        </li>
+        <li class="mdc-list-item" tabindex="0">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">Another item</span>
+        </li>
+        <li class="mdc-list-divider" role="separator"></li>
+        <li class="mdc-list-item" tabindex="0">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">Third item</span>
+        </li>
+      </ul>
+      <!-- Two-line list -->
+      <ul class="mdc-list mdc-list--two-line" style="width:280px;">
+        <li class="mdc-list-item" tabindex="0">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text">Two-line item</span>
+            <span class="mdc-list-item__secondary-text">Secondary text</span>
+          </span>
+        </li>
+        <li class="mdc-list-item" tabindex="0">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text">Another item</span>
+            <span class="mdc-list-item__secondary-text">Secondary text</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="code-snippet">&lt;ul class="mdc-list"&gt;
+  &lt;li class="mdc-list-item" tabindex="0"&gt;
+    &lt;span class="mdc-list-item__ripple"&gt;&lt;/span&gt;
+    &lt;span class="mdc-list-item__text"&gt;Item&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 13. MENUS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>13. Menus</h2>
+    <div class="demo-area flex-row">
+      <div class="mdc-menu-surface--anchor">
+        <button class="mdc-button mdc-button--raised" id="menu-demo-button">
+          <span class="mdc-button__ripple"></span>
+          <span class="mdc-button__label">Open Menu</span>
+        </button>
+        <div class="mdc-menu mdc-menu-surface" id="demo-menu">
+          <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+            <li class="mdc-list-item" role="menuitem" tabindex="0">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">Item 1</span>
+            </li>
+            <li class="mdc-list-item" role="menuitem" tabindex="0">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">Item 2</span>
+            </li>
+            <li class="mdc-list-item" role="menuitem" tabindex="0">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">Item 3</span>
+            </li>
+            <li class="mdc-list-divider" role="separator"></li>
+            <li class="mdc-list-item" role="menuitem" tabindex="0">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">Item 4</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-menu-surface--anchor"&gt;
+  &lt;button class="mdc-button" id="menu-button"&gt;Open&lt;/button&gt;
+  &lt;div class="mdc-menu mdc-menu-surface"&gt;
+    &lt;ul class="mdc-list"&gt;
+      &lt;li class="mdc-list-item"&gt;Item&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 14. DIALOGS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>14. Dialogs</h2>
+    <div class="demo-area">
+      <button class="mdc-button mdc-button--raised" id="dialog-open-btn">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">Open Dialog</span>
+      </button>
+    </div>
+    <!-- Dialog markup -->
+    <div class="mdc-dialog" id="demo-dialog">
+      <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-content">
+          <h2 class="mdc-dialog__title" id="dialog-title">Use Google's location service?</h2>
+          <div class="mdc-dialog__content" id="dialog-content">
+            Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+          </div>
+          <div class="mdc-dialog__actions">
+            <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Disagree</span>
+            </button>
+            <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Agree</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mdc-dialog__scrim"></div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-dialog"&gt;
+  &lt;div class="mdc-dialog__container"&gt;
+    &lt;div class="mdc-dialog__surface"&gt;
+      &lt;h2 class="mdc-dialog__title"&gt;Title&lt;/h2&gt;
+      &lt;div class="mdc-dialog__content"&gt;Content&lt;/div&gt;
+      &lt;div class="mdc-dialog__actions"&gt;
+        &lt;button class="mdc-button" data-mdc-dialog-action="cancel"&gt;Cancel&lt;/button&gt;
+        &lt;button class="mdc-button" data-mdc-dialog-action="accept"&gt;OK&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="mdc-dialog__scrim"&gt;&lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 15. SNACKBARS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>15. Snackbars</h2>
+    <div class="demo-area">
+      <button class="mdc-button mdc-button--raised" id="snackbar-show-btn">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">Show Snackbar</span>
+      </button>
+    </div>
+    <div class="snackbar-demo-container">
+      <aside class="mdc-snackbar" id="demo-snackbar">
+        <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+          <div class="mdc-snackbar__label" aria-atomic="false">
+            Can't send photo. Retry in 5 seconds.
+          </div>
+          <div class="mdc-snackbar__actions" aria-atomic="true">
+            <button type="button" class="mdc-button mdc-snackbar__action">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label">Retry</span>
+            </button>
+            <button class="mdc-icon-button mdc-snackbar__dismiss material-icons" title="Dismiss">close</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <div class="code-snippet">&lt;aside class="mdc-snackbar"&gt;
+  &lt;div class="mdc-snackbar__surface"&gt;
+    &lt;div class="mdc-snackbar__label"&gt;Message&lt;/div&gt;
+    &lt;div class="mdc-snackbar__actions"&gt;
+      &lt;button class="mdc-button mdc-snackbar__action"&gt;Retry&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 16. TABS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>16. Tabs</h2>
+    <div class="demo-area">
+      <div class="mdc-tab-bar" role="tablist">
+        <div class="mdc-tab-scroller">
+          <div class="mdc-tab-scroller__scroll-area">
+            <div class="mdc-tab-scroller__scroll-content">
+              <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__text-label">Home</span>
+                </span>
+                <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </button>
+              <button class="mdc-tab" role="tab" aria-selected="false" tabindex="-1">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__text-label">Favorites</span>
+                </span>
+                <span class="mdc-tab-indicator">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </button>
+              <button class="mdc-tab" role="tab" aria-selected="false" tabindex="-1">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__text-label">Settings</span>
+                </span>
+                <span class="mdc-tab-indicator">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-tab-bar" role="tablist"&gt;
+  &lt;div class="mdc-tab-scroller"&gt;
+    &lt;div class="mdc-tab-scroller__scroll-area"&gt;
+      &lt;div class="mdc-tab-scroller__scroll-content"&gt;
+        &lt;button class="mdc-tab mdc-tab--active" role="tab"&gt;
+          &lt;span class="mdc-tab__content"&gt;
+            &lt;span class="mdc-tab__text-label"&gt;Tab&lt;/span&gt;
+          &lt;/span&gt;
+          &lt;span class="mdc-tab-indicator mdc-tab-indicator--active"&gt;
+            &lt;span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"&gt;&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 17. TOP APP BAR -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>17. Top App Bar</h2>
+    <div class="demo-area" style="width:100%;">
+      <div class="top-app-bar-demo">
+        <header class="mdc-top-app-bar">
+          <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+              <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+              <span class="mdc-top-app-bar__title">Title</span>
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+              <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Bookmark this page">bookmark</button>
+              <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="More options">more_vert</button>
+            </section>
+          </div>
+        </header>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;header class="mdc-top-app-bar"&gt;
+  &lt;div class="mdc-top-app-bar__row"&gt;
+    &lt;section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start"&gt;
+      &lt;button class="material-icons mdc-top-app-bar__navigation-icon"&gt;menu&lt;/button&gt;
+      &lt;span class="mdc-top-app-bar__title"&gt;Title&lt;/span&gt;
+    &lt;/section&gt;
+    &lt;section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"&gt;
+      &lt;button class="material-icons mdc-top-app-bar__action-item"&gt;more_vert&lt;/button&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 18. DRAWERS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>18. Navigation Drawer (Permanent)</h2>
+    <div class="demo-area">
+      <aside class="mdc-drawer mdc-drawer--permanent" style="height:260px;">
+        <div class="mdc-drawer__content">
+          <nav class="mdc-list">
+            <a class="mdc-list-item mdc-list-item--activated" href="#" tabindex="0">
+              <span class="mdc-list-item__ripple"></span>
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+              <span class="mdc-list-item__text">Inbox</span>
+            </a>
+            <a class="mdc-list-item" href="#" tabindex="0">
+              <span class="mdc-list-item__ripple"></span>
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
+              <span class="mdc-list-item__text">Sent Mail</span>
+            </a>
+            <a class="mdc-list-item" href="#" tabindex="0">
+              <span class="mdc-list-item__ripple"></span>
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+              <span class="mdc-list-item__text">Drafts</span>
+            </a>
+            <div class="mdc-list-divider"></div>
+            <a class="mdc-list-item" href="#" tabindex="0">
+              <span class="mdc-list-item__ripple"></span>
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">email</i>
+              <span class="mdc-list-item__text">All Mail</span>
+            </a>
+          </nav>
+        </div>
+      </aside>
+    </div>
+    <div class="code-snippet">&lt;aside class="mdc-drawer mdc-drawer--permanent"&gt;
+  &lt;div class="mdc-drawer__content"&gt;
+    &lt;nav class="mdc-list"&gt;
+      &lt;a class="mdc-list-item mdc-list-item--activated" href="#"&gt;
+        &lt;span class="mdc-list-item__ripple"&gt;&lt;/span&gt;
+        &lt;i class="material-icons mdc-list-item__graphic"&gt;inbox&lt;/i&gt;
+        &lt;span class="mdc-list-item__text"&gt;Inbox&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 19. PROGRESS INDICATORS -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>19. Progress Indicators</h2>
+    <div class="demo-area flex-col" style="gap:24px;">
+      <!-- Linear (indeterminate) -->
+      <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate" aria-label="Example Progress Bar">
+        <div class="mdc-linear-progress__buffering-dots"></div>
+        <div class="mdc-linear-progress__buffer"></div>
+        <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+          <span class="mdc-linear-progress__bar-inner"></span>
+        </div>
+        <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+          <span class="mdc-linear-progress__bar-inner"></span>
+        </div>
+      </div>
+      <!-- Circular (indeterminate) -->
+      <div class="mdc-circular-progress" style="width:48px;height:48px;" role="progressbar" aria-label="Example Progress Bar">
+        <div class="mdc-circular-progress__determinate-container">
+          <svg class="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48">
+            <circle class="mdc-circular-progress__determinate-track" cx="24" cy="24" r="18" stroke-width="4"></circle>
+            <circle class="mdc-circular-progress__determinate-circle" cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="113.097" stroke-width="4"></circle>
+          </svg>
+        </div>
+        <div class="mdc-circular-progress__indeterminate-container">
+          <div class="mdc-circular-progress__spinner-layer">
+            <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left">
+              <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"></circle>
+              </svg>
+            </div>
+            <div class="mdc-circular-progress__gap-patch">
+              <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"></circle>
+              </svg>
+            </div>
+            <div class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right">
+              <svg class="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="18" stroke-dasharray="113.097" stroke-dashoffset="56.549" stroke-width="4"></circle>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;!-- Linear --&gt;
+&lt;div role="progressbar" class="mdc-linear-progress"&gt;
+  &lt;div class="mdc-linear-progress__buffering-dots"&gt;&lt;/div&gt;
+  &lt;div class="mdc-linear-progress__buffer"&gt;&lt;/div&gt;
+  &lt;div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar"&gt;
+    &lt;span class="mdc-linear-progress__bar-inner"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Circular --&gt;
+&lt;div class="mdc-circular-progress" role="progressbar"&gt;
+  &lt;div class="mdc-circular-progress__determinate-container"&gt;...&lt;/div&gt;
+  &lt;div class="mdc-circular-progress__indeterminate-container"&gt;...&lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 20. DATA TABLE -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>20. Data Table</h2>
+    <div class="demo-area">
+      <div class="mdc-data-table demo-data-table">
+        <table class="mdc-data-table__table" aria-label="Dessert calories">
+          <thead>
+            <tr class="mdc-data-table__header-row">
+              <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Dessert</th>
+              <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Calories</th>
+              <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Fat (g)</th>
+            </tr>
+          </thead>
+          <tbody class="mdc-data-table__content">
+            <tr class="mdc-data-table__row">
+              <td class="mdc-data-table__cell">Frozen yogurt</td>
+              <td class="mdc-data-table__cell mdc-data-table__cell--numeric">159</td>
+              <td class="mdc-data-table__cell mdc-data-table__cell--numeric">6</td>
+            </tr>
+            <tr class="mdc-data-table__row">
+              <td class="mdc-data-table__cell">Ice cream sandwich</td>
+              <td class="mdc-data-table__cell mdc-data-table__cell--numeric">237</td>
+              <td class="mdc-data-table__cell mdc-data-table__cell--numeric">9</td>
+            </tr>
+            <tr class="mdc-data-table__row">
+              <td class="mdc-data-table__cell">Eclair</td>
+              <td class="mdc-data-table__cell mdc-data-table__cell--numeric">262</td>
+              <td class="mdc-data-table__cell mdc-data-table__cell--numeric">16</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-data-table"&gt;
+  &lt;table class="mdc-data-table__table"&gt;
+    &lt;thead&gt;
+      &lt;tr class="mdc-data-table__header-row"&gt;
+        &lt;th class="mdc-data-table__header-cell"&gt;Dessert&lt;/th&gt;
+        &lt;th class="mdc-data-table__header-cell"&gt;Calories&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr class="mdc-data-table__row"&gt;
+        &lt;td class="mdc-data-table__cell"&gt;Frozen yogurt&lt;/td&gt;
+        &lt;td class="mdc-data-table__cell"&gt;159&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 21. IMAGE LIST -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>21. Image List</h2>
+    <div class="demo-area">
+      <ul class="mdc-image-list demo-image-list">
+        <li class="mdc-image-list__item">
+          <img class="mdc-image-list__image" src="https://picsum.photos/seed/1/200/200" alt="Sample image 1">
+          <div class="mdc-image-list__supporting">
+            <span class="mdc-image-list__label">Image 1</span>
+          </div>
+        </li>
+        <li class="mdc-image-list__item">
+          <img class="mdc-image-list__image" src="https://picsum.photos/seed/2/200/200" alt="Sample image 2">
+          <div class="mdc-image-list__supporting">
+            <span class="mdc-image-list__label">Image 2</span>
+          </div>
+        </li>
+        <li class="mdc-image-list__item">
+          <img class="mdc-image-list__image" src="https://picsum.photos/seed/3/200/200" alt="Sample image 3">
+          <div class="mdc-image-list__supporting">
+            <span class="mdc-image-list__label">Image 3</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="code-snippet">&lt;ul class="mdc-image-list"&gt;
+  &lt;li class="mdc-image-list__item"&gt;
+    &lt;img class="mdc-image-list__image" src="image.jpg" alt=""&gt;
+    &lt;div class="mdc-image-list__supporting"&gt;
+      &lt;span class="mdc-image-list__label"&gt;Label&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 22. BANNER -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>22. Banner</h2>
+    <div class="demo-area">
+      <div class="mdc-banner" role="banner">
+        <div class="mdc-banner__content" role="alertdialog" aria-live="assertive">
+          <div class="mdc-banner__graphic-text-wrapper">
+            <div class="mdc-banner__text">
+              There was a problem processing a transaction on your credit card.
+            </div>
+          </div>
+          <div class="mdc-banner__actions">
+            <button type="button" class="mdc-button mdc-banner__primary-action">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Fix it</span>
+            </button>
+            <button type="button" class="mdc-button mdc-banner__secondary-action">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Learn more</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-banner" role="banner"&gt;
+  &lt;div class="mdc-banner__content" role="alertdialog"&gt;
+    &lt;div class="mdc-banner__text"&gt;Message&lt;/div&gt;
+    &lt;div class="mdc-banner__actions"&gt;
+      &lt;button class="mdc-button mdc-banner__primary-action"&gt;Fix it&lt;/button&gt;
+      &lt;button class="mdc-button mdc-banner__secondary-action"&gt;Learn more&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 23. TOOLTIP -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>23. Tooltip</h2>
+    <div class="demo-area">
+      <div class="tooltip-anchor">
+        <button class="mdc-button mdc-button--raised" id="tooltip-anchor-btn">
+          <span class="mdc-button__ripple"></span>
+          <span class="mdc-button__label">Hover me</span>
+        </button>
+        <div id="demo-tooltip" class="mdc-tooltip" role="tooltip" aria-hidden="true">
+          <div class="mdc-tooltip__surface mdc-tooltip__surface-animation">
+            This is a tooltip
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="tooltip-anchor"&gt;
+  &lt;button class="mdc-button"&gt;Hover me&lt;/button&gt;
+  &lt;div class="mdc-tooltip" role="tooltip"&gt;
+    &lt;div class="mdc-tooltip__surface"&gt;Tooltip text&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 24. ELEVATION (visual only) -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>24. Elevation</h2>
+    <div class="demo-area flex-row">
+      <div class="mdc-elevation--z2" style="padding:16px;background:#fff;border-radius:4px;">Elevation 2</div>
+      <div class="mdc-elevation--z8" style="padding:16px;background:#fff;border-radius:4px;">Elevation 8</div>
+      <div class="mdc-elevation--z16" style="padding:16px;background:#fff;border-radius:4px;">Elevation 16</div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-elevation--z8"&gt;Elevated box&lt;/div&gt;</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 25. LAYOUT GRID -->
+  <!-- ============================================================ -->
+  <div class="component-section">
+    <h2>25. Layout Grid</h2>
+    <div class="demo-area" style="width:100%;">
+      <div class="mdc-layout-grid" style="width:100%;">
+        <div class="mdc-layout-grid__inner">
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4" style="background:#e3f2fd;padding:8px;text-align:center;">span 4</div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4" style="background:#bbdefb;padding:8px;text-align:center;">span 4</div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4" style="background:#90caf9;padding:8px;text-align:center;">span 4</div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6" style="background:#c8e6c9;padding:8px;text-align:center;">span 6</div>
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6" style="background:#a5d6a7;padding:8px;text-align:center;">span 6</div>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">&lt;div class="mdc-layout-grid"&gt;
+  &lt;div class="mdc-layout-grid__inner"&gt;
+    &lt;div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4"&gt;Cell&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+  </div>
+
+</div><!-- /.page-container -->
+
+<!-- ============================================================ -->
+<!-- MATERIAL COMPONENTS WEB JS (M2) -->
+<!-- ============================================================ -->
+<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+<script>
+  // ----------------------------------------------------------
+  // Auto-init all MDC components that support data-mdc-auto-init
+  // ----------------------------------------------------------
+  mdc.autoInit();
+
+  // ----------------------------------------------------------
+  // Manual initializations for components that need them
+  // ----------------------------------------------------------
+
+  // Ripple on all buttons, FABs, icon buttons, cards, list items, chips
+  [].forEach.call(document.querySelectorAll('.mdc-button, .mdc-fab, .mdc-icon-button, .mdc-card__primary-action, .mdc-list-item, .mdc-chip'), function(el) {
+    try { mdc.ripple.MDCRipple.attachTo(el); } catch(e) {}
+  });
+
+  // Text fields
+  [].forEach.call(document.querySelectorAll('.mdc-text-field'), function(el) {
+    try { new mdc.textField.MDCTextField(el); } catch(e) {}
+  });
+
+  // Checkboxes
+  [].forEach.call(document.querySelectorAll('.mdc-checkbox'), function(el) {
+    try { new mdc.checkbox.MDCCheckbox(el); } catch(e) {}
+  });
+
+  // Radios
+  [].forEach.call(document.querySelectorAll('.mdc-radio'), function(el) {
+    try { new mdc.radio.MDCRadio(el); } catch(e) {}
+  });
+
+  // Switches
+  [].forEach.call(document.querySelectorAll('.mdc-switch'), function(el) {
+    try { new mdc.switchControl.MDCSwitch(el); } catch(e) {}
+  });
+
+  // Select
+  [].forEach.call(document.querySelectorAll('.mdc-select'), function(el) {
+    try { new mdc.select.MDCSelect(el); } catch(e) {}
+  });
+
+  // Sliders
+  [].forEach.call(document.querySelectorAll('.mdc-slider'), function(el) {
+    try { new mdc.slider.MDCSlider(el); } catch(e) {}
+  });
+
+  // Lists
+  [].forEach.call(document.querySelectorAll('.mdc-list'), function(el) {
+    try { new mdc.list.MDCList(el); } catch(e) {}
+  });
+
+  // Menus
+  [].forEach.call(document.querySelectorAll('.mdc-menu'), function(el) {
+    try { new mdc.menu.MDCMenu(el); } catch(e) {}
+  });
+
+  // Dialog
+  var dialogEl = document.querySelector('#demo-dialog');
+  if (dialogEl) {
+    var dialog = new mdc.dialog.MDCDialog(dialogEl);
+    document.querySelector('#dialog-open-btn').addEventListener('click', function() {
+      dialog.open();
+    });
+  }
+
+  // Snackbar
+  var snackbarEl = document.querySelector('#demo-snackbar');
+  if (snackbarEl) {
+    var snackbar = new mdc.snackbar.MDCSnackbar(snackbarEl);
+    document.querySelector('#snackbar-show-btn').addEventListener('click', function() {
+      snackbar.open();
+    });
+  }
+
+  // Tab bar
+  [].forEach.call(document.querySelectorAll('.mdc-tab-bar'), function(el) {
+    try { new mdc.tabBar.MDCTabBar(el); } catch(e) {}
+  });
+
+  // Top app bar
+  [].forEach.call(document.querySelectorAll('.mdc-top-app-bar'), function(el) {
+    try { new mdc.topAppBar.MDCTopAppBar(el); } catch(e) {}
+  });
+
+  // Drawer
+  [].forEach.call(document.querySelectorAll('.mdc-drawer'), function(el) {
+    try { new mdc.drawer.MDCDrawer(el); } catch(e) {}
+  });
+
+  // Linear progress
+  [].forEach.call(document.querySelectorAll('.mdc-linear-progress'), function(el) {
+    try { new mdc.linearProgress.MDCLinearProgress(el); } catch(e) {}
+  });
+
+  // Circular progress
+  [].forEach.call(document.querySelectorAll('.mdc-circular-progress'), function(el) {
+    try { new mdc.circularProgress.MDCCircularProgress(el); } catch(e) {}
+  });
+
+  // Data table
+  [].forEach.call(document.querySelectorAll('.mdc-data-table'), function(el) {
+    try { new mdc.dataTable.MDCDataTable(el); } catch(e) {}
+  });
+
+  // Chips
+  [].forEach.call(document.querySelectorAll('.mdc-chip-set'), function(el) {
+    try { new mdc.chips.MDCChipSet(el); } catch(e) {}
+  });
+
+  // Banner
+  [].forEach.call(document.querySelectorAll('.mdc-banner'), function(el) {
+    try { new mdc.banner.MDCBanner(el); } catch(e) {}
+  });
+
+  // Tooltip
+  var tooltipEl = document.querySelector('#demo-tooltip');
+  var tooltipAnchor = document.querySelector('#tooltip-anchor-btn');
+  if (tooltipEl && tooltipAnchor) {
+    try {
+      var tooltip = new mdc.tooltip.MDCTooltip(tooltipEl);
+      tooltipAnchor.addEventListener('mouseenter', function() {
+        tooltip.show();
+      });
+      tooltipAnchor.addEventListener('mouseleave', function() {
+        tooltip.hide();
+      });
+    } catch(e) {}
+  }
+
+  // Icon button toggle
+  var iconToggle = document.querySelector('#icon-toggle-demo');
+  if (iconToggle) {
+    try {
+      var toggle = new mdc.iconButton.MDCIconButtonToggle(iconToggle);
+    } catch(e) {}
+  }
+
+  // Menu demo: connect button to menu
+  var menuButton = document.querySelector('#menu-demo-button');
+  var menuEl = document.querySelector('#demo-menu');
+  if (menuButton && menuEl) {
+    var menu = mdc.menu.MDCMenu.attachTo(menuEl);
+    menuButton.addEventListener('click', function() {
+      menu.open = !menu.open;
+    });
+  }
+
+  // Notched outline for text fields
+  [].forEach.call(document.querySelectorAll('.mdc-notched-outline'), function(el) {
+    try { new mdc.notchedOutline.MDCNotchedOutline(el); } catch(e) {}
+  });
+
+  // Floating label (auto-init usually handles this, but keep for safety)
+  [].forEach.call(document.querySelectorAll('.mdc-floating-label'), function(el) {
+    try { new mdc.floatingLabel.MDCFloatingLabel(el); } catch(e) {}
+  });
+
+  // Line ripple
+  [].forEach.call(document.querySelectorAll('.mdc-line-ripple'), function(el) {
+    try { new mdc.lineRipple.MDCLineRipple(el); } catch(e) {}
+  });
+
+  // Form fields
+  [].forEach.call(document.querySelectorAll('.mdc-form-field'), function(el) {
+    try { new mdc.formField.MDCFormField(el); } catch(e) {}
+  });
+
+  console.log('All MDC M2 components initialized.');
+</script>
+
+</body>
+</html>
