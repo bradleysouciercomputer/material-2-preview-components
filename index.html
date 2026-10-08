@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M2 × M3 — Material Design Playground</title>
+
+  <!-- Fonts: Roboto + both icon fonts (M2 = Material Icons, M3 = Material Symbols) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <!-- ============================================================
+       MATERIAL 2  —  Material Components for the Web (CDN)
+       ============================================================ -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+
+  <!-- ============================================================
+       MATERIAL 3  —  @material/web (ESM via import map)
+       ============================================================ -->
+  <script type="importmap">
+    {
+      "imports": {
+        "@material/web/": "https://esm.run/@material/web/"
+      }
+    }
+  </script>
+  <script type="module">
+    import '@material/web/all.js';
+    import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
+    document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+  </script>
+
+  <style>
+    /* ==========================================================
+       THEME BRIDGE
+       M2 reads --mdc-theme-*, M3 reads --md-sys-color-*.
+       We point them at the same palette so both systems agree.
+       ========================================================== */
+    :root {
+      --mdc-theme-primary: #6750a4;
+      --mdc-theme-secondary: #625b71;
+      --mdc-theme-on-primary: #ffffff;
+      --mdc-theme-surface: #ffffff;
+      --mdc-theme-background: #fef7ff;
+
+      --ink: #1d1b20;
+      --muted: #49454f;
+      --page: #f7f2fa;
+      --outline: #cac4d0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--page);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px 96px;
+    }
+
+    /* ---------- M2 TOP APP BAR (kept in flow, re-themed) ---------- */
+    .app-bar {
+      position: relative;
+      background: linear-gradient(90deg, #6750a4 0%, #7f67be 100%);
+      color: #fff;
+    }
+    .app-bar .mdc-top-app-bar__title {
+      color: #fff;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+    .app-bar .mdc-top-app-bar__navigation-icon { color: #fff; }
+    .app-bar md-text-button {
+      --md-text-button-label-text-color: #ffffff;
+      --md-text-button-hover-label-text-color: #ffffff;
+      --md-text-button-focus-label-text-color: #ffffff;
+      --md-text-button-pressed-label-text-color: #ffffff;
+      --md-text-button-hover-state-layer-color: #ffffff;
+      --md-text-button-focus-state-layer-color: #ffffff;
+      --md-text-button-pressed-state-layer-color: #ffffff;
+    }
+    .app-bar .bar-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-right: 8px;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      margin: 40px 0 48px;
+      padding: 56px 48px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #eaddff 0%, #d0bcff 50%, #b69df8 100%);
+      color: #21005d;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .32);
+      pointer-events: none;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: 60px;
+      bottom: -120px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .2);
+      pointer-events: none;
+    }
+    .hero > * { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      opacity: .75;
+      margin: 0 0 12px;
+    }
+    .hero h1 { margin: 0 0 16px; max-width: 15ch; }
+    .hero-text { max-width: 54ch; margin: 0 0 32px; opacity: .85; }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* ---------- GENERIC SECTION ---------- */
+    .section { margin-bottom: 56px; }
+    .section-head { margin-bottom: 20px; }
+    .section-head h2 { margin: 0 0 6px; }
+    .section-head p { margin: 0; color: var(--muted); max-width: 70ch; }
+
+    .badge {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 999px;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .badge.m2 { background: #e8def8; color: #4a3a7a; }
+    .badge.m3 { background: #6750a4; color: #fff; }
+
+    /* ---------- GRIDS ---------- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .grid.two {
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    }
+
+    /* ---------- HYBRID CARDS ---------- */
+    .mix-card {
+      border-radius: 18px;
+      display: block;
+      overflow: hidden;
+    }
+    .mix-card.mdc-card {
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.06);
+    }
+    .mix-card-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .mix-card-body h3 { margin: 0; }
+    .mix-card-body p { margin: 0; color: var(--muted); }
+    .mix-card-body md-slider,
+    .mix-card-body md-outlined-text-field,
+    .mix-card-body md-filled-text-field,
+    .mix-card-body md-outlined-select,
+    .mix-card-body md-filled-select,
+    .mix-card-body .mdc-text-field,
+    .mix-card-body .mdc-select {
+      width: 100%;
+    }
+    .mix-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .card-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 14px 22px;
+      border-bottom: 1px solid #ece6f0;
+      background: #fbf8ff;
+    }
+
+    /* ---------- SIDE-BY-SIDE COMPARISON ---------- */
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--outline);
+      background: #fff;
+    }
+    @media (max-width: 720px) { .compare { grid-template-columns: 1fr; } }
+    .compare-col { padding: 24px; display: flex; flex-direction: column; gap: 18px; }
+    .compare-col + .compare-col { border-left: 1px solid #ece6f0; }
+    @media (max-width: 720px) {
+      .compare-col + .compare-col { border-left: none; border-top: 1px solid #ece6f0; }
+    }
+    .compare-col h4 {
+      margin: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ece6f0;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: .72rem;
+      font-weight: 700;
+    }
+    .compare-col .stack { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+    .compare-col .row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+    /* ---------- M2 DRAWER WRAPPER ---------- */
+    .drawer-wrap {
+      position: relative;
+      height: 232px;
+      border: 1px solid var(--outline);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    /* ---------- LINK CARDS ---------- */
+    .link-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 8px;
+    }
+    .link-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 32px;
+      border-radius: 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .18s ease, box-shadow .18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .link-card:hover { transform: translateY(-4px); }
+    .link-card .arrow { font-size: 1.5rem; margin-top: 8px; }
+    .link-card.m2 {
+      background: linear-gradient(140deg, #e8def8 0%, #d5c4f5 100%);
+      color: #3b2a63;
+      box-shadow: 0 2px 8px rgba(103, 80, 164, .18);
+    }
+    .link-card.m2:hover { box-shadow: 0 12px 28px rgba(103, 80, 164, .32); }
+    .link-card.m3 {
+      background: linear-gradient(140deg, #6750a4 0%, #4f378b 100%);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(103, 80, 164, .28);
+    }
+    .link-card.m3:hover { box-shadow: 0 12px 28px rgba(79, 55, 139, .42); }
+    .link-card .file {
+      font-family: 'Roboto Mono', 'Consolas', monospace;
+      font-size: .8rem;
+      opacity: .75;
+    }
+
+    /* ---------- MISC FIXES ---------- */
+    .mdc-form-field { margin-right: 8px; }
+    .mdc-drawer { position: relative; height: 100%; }
+    .mdc-drawer--permanent { width: 256px; }
+    md-icon {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      white-space: nowrap;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: .85rem;
+      padding-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================================================================
+     M2 TOP APP BAR  ×  M3 TEXT BUTTONS (cross-version navigation)
+     ================================================================ -->
+<header class="mdc-top-app-bar app-bar">
+  <div class="mdc-top-app-bar__row">
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+      <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" id="scroll-top" aria-label="Back to top">menu</button>
+      <span class="mdc-top-app-bar__title">M2 × M3 Playground</span>
+    </section>
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+      <div class="bar-links">
+        <md-text-button href="material-2.html" trailing-icon>
+          M2 Preview
+          <md-icon slot="icon">arrow_outward</md-icon>
+        </md-text-button>
+        <md-text-button href="material-3.html" trailing-icon>
+          M3 Preview
+          <md-icon slot="icon">arrow_outward</md-icon>
+        </md-text-button>
+      </div>
+    </section>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- ================================================================
+       HERO — M3 typography + M2 & M3 buttons side by side
+       ================================================================ -->
+  <section class="hero">
+    <p class="md-typescale-label-large hero-eyebrow">Material Design Playground</p>
+    <h1 class="md-typescale-display-medium">Where M2 meets M3.</h1>
+    <p class="md-typescale-body-large hero-text">
+      One page, two design systems. Classic <strong>Material Components for the Web</strong> (M2)
+      rendering alongside modern <strong>@material/web</strong> (M3) web components — sharing a
+      single colour palette so they finally look like family.
+    </p>
+    <div class="hero-actions">
+      <!-- M3 button -->
+      <md-filled-button href="material-3.html" trailing-icon>
+        Explore M3
+        <md-icon slot="icon">arrow_forward</md-icon>
+      </md-filled-button>
+      <!-- M2 button, themed with M3 primary -->
+      <a href="material-2.html" class="mdc-button mdc-button--unelevated" style="--mdc-theme-primary:#21005d; --mdc-theme-on-primary:#ffffff;">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">Explore M2</span>
+      </a>
+      <!-- M3 icon button -->
+      <md-icon-button aria-label="Bookmark">
+        <md-icon>bookmark</md-icon>
+      </md-icon-button>
+      <!-- M2 chip set -->
+      <div class="mdc-chip-set" role="grid" style="margin-left:4px;">
+        <div class="mdc-chip" role="row">
+          <div class="mdc-chip__ripple"></div>
+          <span role="gridcell">
+            <span role="button" tabindex="0" class="mdc-chip__primary-action">
+              <span class="mdc-chip__text">M2 chip</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       SECTION 1 — THE MIX LAB
+       Cards whose *shell* is one version and whose *contents* is the other
+       ================================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <h2 class="md-typescale-headline-medium">The Mix Lab</h2>
+      <p class="md-typescale-body-medium">
+        Four hybrid cards. Two use an M2 card shell filled with M3 controls, two use an M3 card shell
+        filled with M2 controls. They all inherit the same purple palette.
+      </p>
+    </div>
+
+    <div class="grid">
+
+      <!-- ---- Card A: M2 shell, M3 guts ---- -->
+      <div class="mdc-card mix-card">
+        <div class="card-label">
+          <span class="md-typescale-title-small">M3 inside M2</span>
+          <span class="badge m2">mdc-card</span>
+        </div>
+        <div class="mix-card-body">
+          <h3 class="md-typescale-title-large">A classic shell</h3>
+          <p class="md-typescale-body-small">Rounded off and re-themed to match M3.</p>
+          <md-slider value="62" labeled aria-label="Volume"></md-slider>
+          <div class="mix-row">
+            <md-switch selected></md-switch>
+            <span class="md-typescale-body-medium">Notifications on</span>
+          </div>
+          <md-outlined-text-field label="Your name"></md-outlined-text-field>
+        </div>
+      </div>
+
+      <!-- ---- Card B: M3 shell, M2 guts ---- -->
+      <md-outlined-card class="mix-card">
+        <div class="card-label">
+          <span class="md-typescale-title-small">M2 inside M3</span>
+          <span class="badge m3">md-outlined-card</span>
+        </div>
+        <div class="mix-card-body">
+          <h3 class="md-typescale-title-large">A modern shell</h3>
+          <p class="md-typescale-body-small">M2 controls with real ripple effects, resting on an M3 surface.</p>
+
+          <div class="mdc-form-field">
+            <div class="mdc-checkbox">
+              <input type="checkbox" class="mdc-checkbox__native-control" id="mix-cb-1" checked>
+              <div class="mdc-checkbox__background">
+                <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                  <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                </svg>
+                <div class="mdc-checkbox__mixedmark"></div>
+              </div>
+              <div class="mdc-checkbox__ripple"></div>
+            </div>
+            <label for="mix-cb-1">M2 checkbox</label>
+          </div>
+
+          <div class="mdc-form-field">
+            <div class="mdc-radio">
+              <input class="mdc-radio__native-control" type="radio" id="mix-r-1" name="mix-radio" checked>
+              <div class="mdc-radio__background">
+                <div class="mdc-radio__outer-circle"></div>
+                <div class="mdc-radio__inner-circle"></div>
+              </div>
+              <div class="mdc-radio__ripple"></div>
+            </div>
+            <label for="mix-r-1">M2 radio</label>
+          </div>
+
+          <label class="mdc-text-field mdc-text-field--outlined">
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="mix-tf-label">M2 outlined field</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" class="mdc-text-field__input" aria-labelledby="mix-tf-label">
+          </label>
+        </div>
+      </md-outlined-card>
+
+      <!-- ---- Card C: M2 shell, M3 select + chips ---- -->
+      <div class="mdc-card mix-card">
+        <div class="card-label">
+          <span class="md-typescale-title-small">M3 selects &amp; chips</span>
+          <span class="badge m2">mdc-card</span>
+        </div>
+        <div class="mix-card-body">
+          <h3 class="md-typescale-title-large">Menus, both ways</h3>
+          <md-filled-select label="M3 filled select">
+            <md-select-option value="1"><div slot="headline">Alpha</div></md-select-option>
+            <md-select-option value="2"><div slot="headline">Beta</div></md-select-option>
+            <md-select-option value="3"><div slot="headline">Gamma</div></md-select-option>
+          </md-filled-select>
+
+          <md-chip-set>
+            <md-filter-chip label="Selected" selected></md-filter-chip>
+            <md-assist-chip label="Assist"></md-assist-chip>
+            <md-suggestion-chip label="Suggest"></md-suggestion-chip>
+          </md-chip-set>
+        </div>
+      </div>
+
+      <!-- ---- Card D: M2 shell, M3 progress ---- -->
+      <div class="mdc-card mix-card">
+        <div class="card-label">
+          <span class="md-typescale-title-small">Progress, both ways</span>
+          <span class="badge m2">mdc-card</span>
+        </div>
+        <div class="mix-card-body">
+          <h3 class="md-typescale-title-large">Loading states</h3>
+          <p class="md-typescale-body-small">M2 linear indicator above, M3 circular below.</p>
+
+          <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate" aria-label="M2 linear progress">
+            <div class="mdc-linear-progress__buffering-dots"></div>
+            <div class="mdc-linear-progress__buffer"></div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+              <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+              <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
+          </div>
+
+          <div class="mix-row">
+            <md-circular-progress indeterminate style="width:36px;height:36px;"></md-circular-progress>
+            <md-circular-progress value="0.7" style="width:36px;height:36px;"></md-circular-progress>
+            <span class="md-typescale-body-small">indeterminate &amp; 70%</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       SECTION 2 — SIDE BY SIDE
+       ================================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <h2 class="md-typescale-headline-medium">Same job, two eras</h2>
+      <p class="md-typescale-body-medium">
+        Identical controls, rendered by each library. Notice how the M2 column picks up the M3
+        primary colour through the <code>--mdc-theme-primary</code> bridge.
+      </p>
+    </div>
+
+    <div class="compare">
+      <!-- M2 column -->
+      <div class="compare-col">
+        <h4>Material 2 — MDC</h4>
+        <div class="stack">
+          <div class="row">
+            <button class="mdc-button mdc-button--raised">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Raised</span>
+            </button>
+            <button class="mdc-button mdc-button--outlined">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Outlined</span>
+            </button>
+          </div>
+
+          <div class="mdc-form-field">
+            <div class="mdc-switch mdc-switch--unselected" tabindex="0" role="switch" aria-checked="false" id="m2-switch">
+              <div class="mdc-switch__track"></div>
+              <div class="mdc-switch__handle-track">
+                <div class="mdc-switch__handle">
+                  <div class="mdc-switch__shadow"><div class="mdc-elevation-overlay"></div></div>
+                  <div class="mdc-switch__ripple"></div>
+                </div>
+              </div>
+            </div>
+            <label for="m2-switch">M2 switch</label>
+          </div>
+
+          <div class="mdc-select mdc-select--filled" style="width:100%;">
+            <div class="mdc-select__anchor">
+              <span class="mdc-select__ripple"></span>
+              <span class="mdc-floating-label" id="m2-select-label">M2 select</span>
+              <span class="mdc-select__dropdown-icon">
+                <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5">
+                  <polygon class="mdc-select__dropdown-icon-inactive" stroke="none" fill-rule="evenodd" points="7 10 12 15 17 10"></polygon>
+                  <polygon class="mdc-select__dropdown-icon-active" stroke="none" fill-rule="evenodd" points="7 15 12 10 17 15"></polygon>
+                </svg>
+              </span>
+              <span class="mdc-select__selected-text" role="button" aria-haspopup="listbox" aria-labelledby="m2-select-label"></span>
+              <span class="mdc-line-ripple"></span>
+            </div>
+            <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+              <ul class="mdc-list" role="listbox" aria-label="M2 select options">
+                <li class="mdc-list-item mdc-list-item--selected" aria-selected="true" data-value="one" role="option">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">One</span>
+                </li>
+                <li class="mdc-list-item" aria-selected="false" data-value="two" role="option">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">Two</span>
+                </li>
+                <li class="mdc-list-item" aria-selected="false" data-value="three" role="option">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">Three</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- M3 column -->
+      <div class="compare-col">
+        <h4>Material 3 — @material/web</h4>
+        <div class="stack">
+          <div class="row">
+            <md-filled-button>Filled</md-filled-button>
+            <md-outlined-button>Outlined</md-outlined-button>
+          </div>
+
+          <div class="row">
+            <md-switch></md-switch>
+            <span class="md-typescale-body-medium">M3 switch</span>
+          </div>
+
+          <md-outlined-select label="M3 select" style="width:100%;">
+            <md-select-option value="one"><div slot="headline">One</div></md-select-option>
+            <md-select-option value="two"><div slot="headline">Two</div></md-select-option>
+            <md-select-option value="three"><div slot="headline">Three</div></md-select-option>
+          </md-outlined-select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       SECTION 3 — CROSS-VERSION INTERACTIONS
+       M3 button → M2 snackbar  |  M2 button → M3 dialog  |  M2 menu
+       ================================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <h2 class="md-typescale-headline-medium">Cross-version interactions</h2>
+      <p class="md-typescale-body-medium">
+        Triggers from one library open overlays from the other. The M2 ripple and the M3 state layer
+        sit happily next to each other.
+      </p>
+    </div>
+
+    <div class="grid two">
+      <!-- Snackbar trigger -->
+      <div class="mdc-card mix-card">
+        <div class="card-label">
+          <span class="md-typescale-title-small">M3 button → M2 snackbar</span>
+          <span class="badge m3">md-filled-button</span>
+        </div>
+        <div class="mix-card-body">
+          <p class="md-typescale-body-medium">
+            The snackbar at the bottom of the viewport is a genuine MDC snackbar, complete with its
+            own ripple-driven action button.
+          </p>
+          <div class="mix-row">
+            <md-filled-button id="m3-snackbar-trigger">
+              <md-icon slot="icon">notifications</md-icon>
+              Show snackbar
+            </md-filled-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dialog trigger -->
+      <div class="mdc-card mix-card">
+        <div class="card-label">
+          <span class="md-typescale-title-small">M2 button → M3 dialog</span>
+          <span class="badge m2">mdc-button</span>
+        </div>
+        <div class="mix-card-body">
+          <p class="md-typescale-body-medium">
+            This trigger is a classic MDC button with a real ripple; the dialog it opens is a native
+            <code>&lt;md-dialog&gt;</code> web component.
+          </p>
+          <div class="mix-row">
+            <button class="mdc-button mdc-button--raised" id="m2-dialog-trigger">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Open M3 dialog</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- M2 menu -->
+      <div class="mdc-card mix-card">
+        <div class="card-label">
+          <span class="md-typescale-title-small">M2 menu, M3 flavoured</span>
+          <span class="badge m2">mdc-menu</span>
+        </div>
+        <div class="mix-card-body">
+          <p class="md-typescale-body-medium">
+            A classic MDC menu surface, anchored to an M2 button and re-themed with the shared purple.
+          </p>
+          <div class="mix-row">
+            <div class="mdc-menu-surface--anchor">
+              <button class="mdc-button mdc-button--outlined" id="m2-menu-button">
+                <span class="mdc-button__ripple"></span>
+                <span class="mdc-button__label">Open M2 menu</span>
+              </button>
+              <div class="mdc-menu mdc-menu-surface" id="m2-menu">
+                <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+                  <li class="mdc-list-item" role="menuitem" tabindex="0">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">Ripple me</span>
+                  </li>
+                  <li class="mdc-list-item" role="menuitem" tabindex="0">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">Second item</span>
+                  </li>
+                  <li class="mdc-list-divider" role="separator"></li>
+                  <li class="mdc-list-item" role="menuitem" tabindex="0">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">Third item</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer trigger -->
+      <div class="mdc-card mix-card">
+        <div class="card-label">
+          <span class="md-typescale-title-small">M2 button → M3 drawer</span>
+          <span class="badge m3">md-navigation-drawer</span>
+        </div>
+        <div class="mix-card-body">
+          <p class="md-typescale-body-medium">
+            Another cross-version handshake: a rippling MDC button sliding in a Material 3 modal
+            navigation drawer.
+          </p>
+          <div class="mix-row">
+            <button class="mdc-button mdc-button--unelevated" id="m3-drawer-trigger">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Open M3 drawer</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       SECTION 4 — NAVIGATION PATTERNS
+       ================================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <h2 class="md-typescale-headline-medium">Navigation patterns</h2>
+      <p class="md-typescale-body-medium">
+        An M2 permanent drawer, an M3 tab bar and an M3 navigation bar — all on one page.
+      </p>
+    </div>
+
+    <div class="grid two">
+      <!-- M2 permanent drawer -->
+      <div class="drawer-wrap">
+        <aside class="mdc-drawer mdc-drawer--permanent">
+          <div class="mdc-drawer__content">
+            <nav class="mdc-list">
+              <a class="mdc-list-item mdc-list-item--activated" href="#" tabindex="0">
+                <span class="mdc-list-item__ripple"></span>
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+                <span class="mdc-list-item__text">Inbox</span>
+              </a>
+              <a class="mdc-list-item" href="#" tabindex="0">
+                <span class="mdc-list-item__ripple"></span>
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
+                <span class="mdc-list-item__text">Sent</span>
+              </a>
+              <a class="mdc-list-item" href="#" tabindex="0">
+                <span class="mdc-list-item__ripple"></span>
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+                <span class="mdc-list-item__text">Drafts</span>
+              </a>
+              <div class="mdc-list-divider"></div>
+              <a class="mdc-list-item" href="#" tabindex="0">
+                <span class="mdc-list-item__ripple"></span>
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">delete</i>
+                <span class="mdc-list-item__text">Trash</span>
+              </a>
+            </nav>
+          </div>
+        </aside>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <!-- M3 primary tabs -->
+        <md-tabs>
+          <md-primary-tab>Overview</md-primary-tab>
+          <md-primary-tab>Activity</md-primary-tab>
+          <md-primary-tab>Settings</md-primary-tab>
+        </md-tabs>
+
+        <!-- M3 segmented button -->
+        <div>
+          <md-segmented-button-set>
+            <md-segmented-button label="Day"></md-segmented-button>
+            <md-segmented-button label="Week"></md-segmented-button>
+            <md-segmented-button label="Month"></md-segmented-button>
+          </md-segmented-button-set>
+        </div>
+
+        <!-- M3 navigation bar -->
+        <div style="border:1px solid var(--outline);border-radius:18px;overflow:hidden;">
+          <md-navigation-bar>
+            <md-navigation-tab label="Home">
+              <md-icon slot="icon">home</md-icon>
+            </md-navigation-tab>
+            <md-navigation-tab label="Search">
+              <md-icon slot="icon">search</md-icon>
+            </md-navigation-tab>
+            <md-navigation-tab label="Library">
+              <md-icon slot="icon">library_music</md-icon>
+            </md-navigation-tab>
+          </md-navigation-bar>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       SECTION 5 — DEDICATED PREVIEW PAGES
+       ================================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <h2 class="md-typescale-headline-medium">Full component catalogues</h2>
+      <p class="md-typescale-body-medium">
+        Every component from each library, on its own page.
+      </p>
+    </div>
+
+    <div class="link-cards">
+      <a class="link-card m2" href="material-2.html">
+        <span class="md-typescale-label-large">Material 2</span>
+        <span class="md-typescale-headline-medium">All MDC components</span>
+        <span class="md-typescale-body-medium">
+          Buttons, FABs, text fields, selects, sliders, chips, cards, lists, menus, dialogs,
+          snackbars, tabs, app bars, drawers, data tables, banners and more.
+        </span>
+        <span class="file">material-2.html</span>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="link-card m3" href="material-3.html">
+        <span class="md-typescale-label-large">Material 3</span>
+        <span class="md-typescale-headline-medium">All @material/web components</span>
+        <span class="md-typescale-body-medium">
+          Filled, tonal, elevated and outlined buttons, FABs, icon buttons, checkboxes, radios,
+          switches, text fields, selects, sliders, chips, cards, lists, menus, dialogs, tabs,
+          navigation bar and rail, progress and typography.
+        </span>
+        <span class="file">material-3.html</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <p class="footer-note md-typescale-body-small" style="margin-top:32px;">
+      Built with material-components-web (M2) and @material/web (M3) — both loaded from a CDN.
+    </p>
+  </section>
+
+</main>
+
+<!-- ================================================================
+     M2 SNACKBAR (bottom of viewport)
+     ================================================================ -->
+<aside class="mdc-snackbar" id="mix-snackbar">
+  <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+    <div class="mdc-snackbar__label" aria-atomic="false">
+      This M2 snackbar was opened by an M3 button.
+    </div>
+    <div class="mdc-snackbar__actions" aria-atomic="true">
+      <button type="button" class="mdc-button mdc-snackbar__action">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">Undo</span>
+      </button>
+      <button class="mdc-icon-button mdc-snackbar__dismiss material-icons" title="Dismiss">close</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ================================================================
+     M3 DIALOG
+     ================================================================ -->
+<md-dialog id="mix-dialog">
+  <md-icon slot="icon">auto_awesome</md-icon>
+  <div slot="headline">An M3 dialog</div>
+  <div slot="content">
+    You opened me with a Material&nbsp;2 button. Notice the MDC ripple on the trigger and the M3
+    surface, typography and state layers inside this dialog.
+  </div>
+  <div slot="actions">
+    <md-text-button id="mix-dialog-close">Got it</md-text-button>
+  </div>
+</md-dialog>
+
+<!-- ================================================================
+     M3 MODAL NAVIGATION DRAWER
+     ================================================================ -->
+<md-navigation-drawer id="mix-drawer" modal>
+  <div slot="headline">Navigation</div>
+  <md-list>
+    <md-list-item>
+      <md-icon slot="start">inbox</md-icon>
+      <div slot="headline">Inbox</div>
+    </md-list-item>
+    <md-list-item>
+      <md-icon slot="start">send</md-icon>
+      <div slot="headline">Sent</div>
+    </md-list-item>
+    <md-list-item>
+      <md-icon slot="start">drafts</md-icon>
+      <div slot="headline">Drafts</div>
+    </md-list-item>
+    <md-divider></md-divider>
+    <md-list-item>
+      <md-icon slot="start">delete</md-icon>
+      <div slot="headline">Trash</div>
+    </md-list-item>
+  </md-list>
+</md-navigation-drawer>
+
+<!-- ================================================================
+     MATERIAL 2 JAVASCRIPT + INITIALISATION
+     ================================================================ -->
+<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+<script>
+  (function () {
+    'use strict';
+
+    function safe(label, fn) {
+      try { fn(); } catch (e) { console.warn('[MDC] ' + label + ':', e); }
+    }
+
+    // MDC auto-init (only acts on elements with data-mdc-auto-init)
+    safe('autoInit', function () { mdc.autoInit(); });
+
+    // ---- Ripples -------------------------------------------------
+    document
+      .querySelectorAll('.mdc-button, .mdc-fab, .mdc-icon-button, .mdc-card__primary-action, .mdc-chip, .mdc-list-item')
+      .forEach(function (el) {
+        safe('ripple', function () { mdc.ripple.MDCRipple.attachTo(el); });
+      });
+
+    // ---- Text fields ---------------------------------------------
+    document.querySelectorAll('.mdc-text-field').forEach(function (el) {
+      safe('textField', function () { new mdc.textField.MDCTextField(el); });
+    });
+
+    // ---- Checkboxes / Radios / Switches --------------------------
+    document.querySelectorAll('.mdc-checkbox').forEach(function (el) {
+      safe('checkbox', function () { new mdc.checkbox.MDCCheckbox(el); });
+    });
+    document.querySelectorAll('.mdc-radio').forEach(function (el) {
+      safe('radio', function () { new mdc.radio.MDCRadio(el); });
+    });
+    document.querySelectorAll('.mdc-switch').forEach(function (el) {
+      safe('switch', function () { new mdc.switchControl.MDCSwitch(el); });
+    });
+
+    // ---- Form fields (labels for check/radio/switch) -------------
+    document.querySelectorAll('.mdc-form-field').forEach(function (el) {
+      safe('formField', function () { new mdc.formField.MDCFormField(el); });
+    });
+
+    // ---- Selects -------------------------------------------------
+    document.querySelectorAll('.mdc-select').forEach(function (el) {
+      safe('select', function () { new mdc.select.MDCSelect(el); });
+    });
+
+    // ---- Lists (skip lists owned by a select's menu) -------------
+    document.querySelectorAll('.mdc-list').forEach(function (el) {
+      if (el.closest('.mdc-select__menu')) return;
+      safe('list', function () { new mdc.list.MDCList(el); });
+    });
+
+    // ---- Chips ---------------------------------------------------
+    document.querySelectorAll('.mdc-chip-set').forEach(function (el) {
+      safe('chipSet', function () { new mdc.chips.MDCChipSet(el); });
+    });
+
+    // ---- Linear progress -----------------------------------------
+    document.querySelectorAll('.mdc-linear-progress').forEach(function (el) {
+      safe('linearProgress', function () { new mdc.linearProgress.MDCLinearProgress(el); });
+    });
+
+    // ---- Snackbar ------------------------------------------------
+    var snackbarEl = document.getElementById('mix-snackbar');
+    var snackbar = null;
+    if (snackbarEl) {
+      safe('snackbar', function () { snackbar = new mdc.snackbar.MDCSnackbar(snackbarEl); });
+    }
+    var snackbarTrigger = document.getElementById('m3-snackbar-trigger');
+    if (snackbarTrigger && snackbar) {
+      snackbarTrigger.addEventListener('click', function () { snackbar.open(); });
+    }
+
+    // ---- M2 menu -------------------------------------------------
+    var menuEl = document.getElementById('m2-menu');
+    var menuButton = document.getElementById('m2-menu-button');
+    if (menuEl && menuButton) {
+      var menu = null;
+      safe('menu', function () { menu = new mdc.menu.MDCMenu(menuEl); });
+      if (menu) {
+        menu.setAnchorCorner(mdc.menu.MDCMenuSurfaceAnchorCorner.BOTTOM_START);
+        menuButton.addEventListener('click', function () {
+          menu.open = !menu.open;
+        });
+      }
+    }
+
+    // ---- Scroll-to-top on the app bar nav icon -------------------
+    var scrollTopBtn = document.getElementById('scroll-top');
+    if (scrollTopBtn) {
+      scrollTopBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    console.log('%c[M2] Material Components initialised', 'color:#6750a4;font-weight:bold');
+  })();
+</script>
+
+<!-- ================================================================
+     MATERIAL 3 INTERACTION WIRING
+     (runs after the head module has imported @material/web/all.js)
+     ================================================================ -->
+<script type="module">
+  // ---- M2 button → M3 dialog --------------------------------------
+  const dialog = document.getElementById('mix-dialog');
+  const dialogTrigger = document.getElementById('m2-dialog-trigger');
+  const dialogClose = document.getElementById('mix-dialog-close');
+
+  if (dialog && dialogTrigger) {
+    dialogTrigger.addEventListener('click', () => dialog.show());
+  }
+  if (dialog && dialogClose) {
+    dialogClose.addEventListener('click', () => dialog.close());
+  }
+
+  // ---- M2 button → M3 modal navigation drawer ---------------------
+  const drawer = document.getElementById('mix-drawer');
+  const drawerTrigger = document.getElementById('m3-drawer-trigger');
+
+  if (drawer && drawerTrigger) {
+    drawerTrigger.addEventListener('click', () => {
+      // The property name differs across versions — set whichever exists.
+      if ('open' in drawer) drawer.open = true;
+      if ('opened' in drawer) drawer.opened = true;
+    });
+  }
+
+  console.log('%c[M3] Material Web components ready', 'color:#6750a4;font-weight:bold');
+</script>
+
+</body>
+</html>
